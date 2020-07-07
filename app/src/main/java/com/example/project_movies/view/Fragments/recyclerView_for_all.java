@@ -3,6 +3,7 @@ package com.example.project_movies.view.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,9 +68,9 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 startActivity(intent);
             }
         });
+
         return root;
     }
-
 
 
 }

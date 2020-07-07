@@ -19,7 +19,7 @@
         <activity
             android:name=".view.MainActivity"
             android:theme="@style/Theme.Design.NoActionBar"
-
+            android:configChanges="screenSize|orientation"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
