@@ -1,6 +1,7 @@
 package com.example.project_movies.view.Fragments;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.io.Serializable;
 public class recyclerView_for_all extends Fragment implements Serializable {
     adapter_recycler_view adapter;
     RecyclerView recyclerView;
+    GridLayoutManager gridLayoutManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +39,15 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
         recyclerView=(RecyclerView) root;
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(container.getContext(),3);
+
+        int orientation=getResources().getConfiguration().orientation;
+
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE){
+            gridLayoutManager=new GridLayoutManager(container.getContext(),4);
+        }else{
+             gridLayoutManager=new GridLayoutManager(container.getContext(),3);
+        }
+
         recyclerView.setLayoutManager(gridLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
@@ -72,6 +82,19 @@ public class recyclerView_for_all extends Fragment implements Serializable {
         return root;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayoutManager.setSpanCount(4);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            gridLayoutManager.setSpanCount(3);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        }
+    }
 }
 
