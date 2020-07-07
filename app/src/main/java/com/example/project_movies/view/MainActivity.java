@@ -76,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 .add(binding.recyclerViewTrending.getId(),fragment_trending)
                 .commit();
 
+        binding.iconMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "HEEY", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
