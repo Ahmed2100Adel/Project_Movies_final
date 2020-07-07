@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Project_Movies</string>
+    <string name="app_name">Movies</string>
+    <string name="verify_your_email">Please verify your email to complete</string>
 </resources>
