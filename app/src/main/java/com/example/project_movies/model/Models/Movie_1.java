@@ -21,6 +21,9 @@ public class Movie_1 {
         this.poster_path = poster_path;
     }
 
+    public Movie_1() {
+    }
+
     public int getId() {
         return id;
     }

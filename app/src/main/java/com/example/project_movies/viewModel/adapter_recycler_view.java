@@ -24,6 +24,7 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
     }
 
 
+    private OnItemClickListener onItemClick;
 
 
     public static final DiffUtil.ItemCallback<Movie_1> DIFF_CALLBACK=new DiffUtil.ItemCallback<Movie_1>() {
@@ -59,7 +60,7 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
 
     }
 
-    public static class movieHolder extends RecyclerView.ViewHolder {
+    public  class movieHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
         private TextView title;
@@ -71,6 +72,29 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
             title=itemView.findViewById(R.id.text_title);
             tex_vote_average=itemView.findViewById(R.id.tex_vote_average);
             text_releaseDate=itemView.findViewById(R.id.text_releaseDate);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int  position= getAdapterPosition();
+                    if (onItemClick!=null && position!= RecyclerView.NO_POSITION){
+
+                        onItemClick.OnItemClick(getItem(position).getId(),
+                                getItem(position).getVote_average(),
+                                getItem(position).getTitle()
+                                ,getItem(position).getRelease_date()
+                                ,getItem(position).getPoster_path());
+                    }
+                }
+            });
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        onItemClick=listener;
+    }
+
+    public interface OnItemClickListener{
+        void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl);
     }
 }
