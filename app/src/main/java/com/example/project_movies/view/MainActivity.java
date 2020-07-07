@@ -2,6 +2,8 @@ package com.example.project_movies.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Arrays;
 import java.util.List;
+import com.example.project_movies.view.Fragments.recyclerView_for_all ;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         };
 
         setContentView(root);
+
+        recyclerView_for_all fragment_trending=new recyclerView_for_all();
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(binding.recyclerViewTrending.getId(),fragment_trending)
+                .commit();
+
     }
 
     @Override
