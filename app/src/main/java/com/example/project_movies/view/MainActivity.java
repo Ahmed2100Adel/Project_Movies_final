@@ -83,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.iconMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.moreList.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
