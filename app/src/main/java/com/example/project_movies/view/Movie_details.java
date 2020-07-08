@@ -35,7 +35,7 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 public class Movie_details extends AppCompatActivity {
 
     private ActivityMovieDetailsBinding binding;
-    String netflix=null;
+    String netflixUrl=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,6 @@ public class Movie_details extends AppCompatActivity {
         String  poster_url= getIntent().getStringExtra(constants.Movie_details.POSTER_URL);
         String  vote_average= getIntent().getStringExtra(constants.Movie_details.VOTE_AVERAGE);
         String  id= getIntent().getStringExtra(constants.Movie_details.ID);
-        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
 
         binding.textReleaseDate.setText(release_date);
         binding.texVoteAverage.setText(vote_average);
@@ -80,7 +79,6 @@ public class Movie_details extends AppCompatActivity {
 
 
         view_mode_Movie2 viewModel= ViewModelProviders.of(this).get(view_mode_Movie2.class);
-        Log.v("main","5");
 
         viewModel.getMovie2(id).observe(this, new Observer<Movie_2>() {
             @Override
@@ -90,15 +88,24 @@ public class Movie_details extends AppCompatActivity {
                 }
                 binding.overView.setText(movie_2.getOverview());
                 binding.genres.setText(movie_2.getGenres());
-                netflix=movie_2.getHomepage();
+                netflixUrl=movie_2.getHomepage();
+                if (!movie_2.getHomepage().contains("netflix.com")){
+                    binding.netflix.setVisibility(View.GONE);
+                }
 
             }
         });
 
-        /*Intent netflix = new Intent();
-        netflix.setAction(Intent.ACTION_VIEW);
-        netflix.setData(Uri.parse("https://www.netflix.com/title/80238203"));
-        netflix.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(netflix);*/
+        binding.netflix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent netflix = new Intent();
+                netflix.setAction(Intent.ACTION_VIEW);
+                netflix.setData(Uri.parse(netflixUrl));
+                netflix.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(netflix);
+            }
+        });
+
     }
 }
