@@ -5,8 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Choreographer;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 import com.example.project_movies.R;
 import com.example.project_movies.databinding.ActivityMainBinding;
@@ -20,6 +28,7 @@ import java.util.List;
 import com.example.project_movies.view.Fragments.recyclerView_for_all ;
 
 import jp.wasabeef.blurry.Blurry;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,14 +93,68 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                binding.iconMore.setEnabled(false);
+                Slide slide6= new Slide();
+                slide6.setSlideEdge(Gravity.RIGHT);
+                slide6.setDuration(700);
+                ViewGroup root6=binding.moreList;
+                TransitionManager.beginDelayedTransition(root6,slide6);
+                binding.moreList.setVisibility(View.VISIBLE);
+
                 Blurry.with(MainActivity.this)
                         .radius(25).
                         sampling(2)
                         .animate()
                         .onto(binding.recyclerViewTrending);
+                Slide slide= new Slide();
+                slide.setSlideEdge(Gravity.RIGHT);
+                slide.setDuration(700);
+                ViewGroup root=binding.root;
+                TransitionManager.beginDelayedTransition(root,slide);
+                binding.forKids.setVisibility(View.VISIBLE);
 
-                binding.moreList.setVisibility(View.VISIBLE);
+
+                Slide slide2= new Slide();
+                slide2.setSlideEdge(Gravity.RIGHT);
+                slide2.setDuration(700);
+                ViewGroup root2=binding.root;
+                TransitionManager.beginDelayedTransition(root2,slide2);
+                binding.popular.setVisibility(View.VISIBLE);
+
+
+                Slide slide3= new Slide();
+                slide3.setSlideEdge(Gravity.LEFT);
+                slide3.setDuration(700);
+                TransitionManager.beginDelayedTransition(root,slide3);
+                binding.best2020.setVisibility(View.VISIBLE);
+
+
+                Slide slide4= new Slide();
+                slide4.setSlideEdge(Gravity.LEFT);
+                slide4.setDuration(700);
+                ViewGroup root4=binding.root;
+                TransitionManager.beginDelayedTransition(root4,slide4);
+                binding.highestRate.setVisibility(View.VISIBLE);
+
+
+                Slide slide5= new Slide();
+                slide5.setSlideEdge(Gravity.BOTTOM);
+
+                slide5.setDuration(1200);
+                ViewGroup root5=binding.root;
+                TransitionManager.beginDelayedTransition(root5,slide5);
+                binding.favorite.setVisibility(View.VISIBLE);
+
+
+
+               /* binding.moreList.setAlpha(0.0f);
+                // Start the animation
+                binding.moreList.animate()
+                        .alpha(1.0f)
+                        .setListener(null);
+                binding.moreList.setVisibility(View.VISIBLE);*/
                 STATE=STATE_MORE_LIST_SHOWN;
+
             }
         });
 
@@ -146,7 +209,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (STATE==STATE_MORE_LIST_SHOWN){
+
+            binding.iconMore.setEnabled(true);
+
+            Slide slide= new Slide();
+            slide.setSlideEdge(Gravity.RIGHT);
+            ViewGroup root=findViewById(R.id.moreList);
+            TransitionManager.beginDelayedTransition(root,slide);
             binding.moreList.setVisibility(View.GONE);
+
+
+
+
             Blurry.delete(binding.recyclerViewTrending);
             STATE=STATE_MORE_LIST_NOT;
         }else{
@@ -154,4 +228,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 }

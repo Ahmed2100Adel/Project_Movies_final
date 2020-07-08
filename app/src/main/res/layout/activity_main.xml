@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-
+    android:id="@+id/root"
     tools:context=".view.MainActivity">
 
     <RelativeLayout
@@ -24,19 +24,20 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:visibility="gone"
             android:id="@+id/moreList"
             >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/moreListDe"
                 >
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-
+                    android:id="@+id/best2020"
+                    android:visibility="gone"
                     >
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -60,6 +61,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    android:visibility="gone"
+                    android:id="@+id/forKids"
+
                     >
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,7 +71,6 @@
                         android:layout_height="100dp"
                         android:src="@android:color/transparent"
                         android:backgroundTint="#252525"
-
                         />
 
                     <TextView
@@ -84,12 +87,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:id="@+id/moreListFe"
                 >
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-
+                    android:id="@+id/highestRate"
+                    android:visibility="gone"
                     >
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -113,6 +118,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
+                    android:id="@+id/popular"
+                    android:visibility="gone"
                     >
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -120,7 +127,6 @@
                         android:layout_height="100dp"
                         android:src="@android:color/transparent"
                         android:backgroundTint="#252525"
-
                         />
 
                     <TextView
@@ -141,6 +147,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:visibility="gone"
+                android:id="@+id/favorite"
                 >
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
