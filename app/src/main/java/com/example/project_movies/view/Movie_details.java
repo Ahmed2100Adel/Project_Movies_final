@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -60,5 +62,11 @@ public class Movie_details extends AppCompatActivity {
 
                     }
                 });
+
+        /*Intent netflix = new Intent();
+        netflix.setAction(Intent.ACTION_VIEW);
+        netflix.setData(Uri.parse("https://www.netflix.com/title/80238203"));
+        netflix.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(netflix);*/
     }
 }
