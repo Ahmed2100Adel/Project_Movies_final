@@ -22,5 +22,7 @@ public class Movie_details extends AppCompatActivity {
         String  poster_url= getIntent().getStringExtra(constants.Movie_details.POSTER_URL);
         String  vote_average= getIntent().getStringExtra(constants.Movie_details.VOTE_AVERAGE);
         Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+
+
     }
 }
