@@ -14,6 +14,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 28 //must match target sdk and build tools
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {
@@ -56,6 +58,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
     implementation 'com.android.support:design:22.2.0'
     implementation 'jp.wasabeef:glide-transformations:4.0.0'
+    //blurry library
+    implementation 'jp.wasabeef:blurry:3.0.0'
+
 
 }
 apply plugin: 'com.android.application'

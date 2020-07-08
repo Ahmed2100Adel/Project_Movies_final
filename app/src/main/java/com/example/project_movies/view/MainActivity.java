@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import com.example.project_movies.view.Fragments.recyclerView_for_all ;
 
+import jp.wasabeef.blurry.Blurry;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN =156 ;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     //Authentication
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    public static  int STATE_MORE_LIST_NOT=1;
+    public static  int STATE_MORE_LIST_SHOWN=2;
+    public static  int STATE=STATE_MORE_LIST_NOT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,17 +83,20 @@ public class MainActivity extends AppCompatActivity {
         binding.iconMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "HEEY", Toast.LENGTH_SHORT).show();
-            }
-        });
 
+                Blurry.with(MainActivity.this)
+                        .radius(25).
+                        sampling(2)
+                        .animate()
+                        .onto(binding.recyclerViewTrending);
 
-        binding.iconMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 binding.moreList.setVisibility(View.VISIBLE);
+                STATE=STATE_MORE_LIST_SHOWN;
             }
         });
+
+
+
     }
 
     @Override
@@ -136,5 +143,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (STATE==STATE_MORE_LIST_SHOWN){
+            binding.moreList.setVisibility(View.GONE);
+            Blurry.delete(binding.recyclerViewTrending);
+            STATE=STATE_MORE_LIST_NOT;
+        }else{
+            finish();
 
+        }
+    }
 }
