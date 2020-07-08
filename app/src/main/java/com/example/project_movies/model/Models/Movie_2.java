@@ -49,7 +49,7 @@ public class Movie_2  {
             if (i==0){
                 stringBuilder.append(genres.get(i));
             }
-            else if (i<genres.size()-2){
+            else if (i<genres.size()-1){
 
                 stringBuilder.append(", "+genres.get(i));
             }else{

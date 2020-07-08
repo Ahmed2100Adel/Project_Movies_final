@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/wholeBackground1"
     tools:context="com.example.project_movies.view.Movie_details">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -63,7 +64,7 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/wholeBackground"
             >
@@ -166,7 +167,7 @@
                 />
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/longtextDummy"
                 android:textSize="20sp"
                 android:lineSpacingExtra="8sp"

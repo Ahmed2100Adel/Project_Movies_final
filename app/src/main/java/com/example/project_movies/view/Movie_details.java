@@ -68,7 +68,7 @@ public class Movie_details extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        binding.wholeBackground.setBackground(resource);
+                        binding.wholeBackground1.setBackground(resource);
                     }
 
                     @Override
