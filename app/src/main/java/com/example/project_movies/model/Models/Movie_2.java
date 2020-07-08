@@ -19,24 +19,17 @@ public class Movie_2  {
         this.overview = overview;
     }
 
-    public Movie_2() {
-    }
 
-    public void setAdult(boolean adult) {
-        this.adult = adult;
-    }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
+
+
+
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
+
 
     public boolean isAdult() {
         return adult;

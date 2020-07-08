@@ -91,6 +91,7 @@ public class Movie_details extends AppCompatActivity {
                 netflixUrl=movie_2.getHomepage();
                 if (!movie_2.getHomepage().contains("netflix.com")){
                     binding.netflix.setVisibility(View.GONE);
+                    movie_2.setHomepage(null);
                 }
 
             }
