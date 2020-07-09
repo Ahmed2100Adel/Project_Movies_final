@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -21,7 +20,7 @@ import com.example.project_movies.R;
 import com.example.project_movies.constants.constants;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Models.Movie_2;
-import com.example.project_movies.viewModel.view_mode_favorite;
+import com.example.project_movies.viewModel.view_model_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
 
@@ -101,7 +100,7 @@ public class Movie_details extends AppCompatActivity {
             }
         });
 
-        view_mode_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_mode_favorite.class);
+        view_model_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_model_favorite.class);
         viewModelFavorits.getPagedLiveData().observe(this, new Observer<List<Movie_1>>() {
             @Override
             public void onChanged(List<Movie_1> favorite_movies) {
@@ -122,7 +121,7 @@ public class Movie_details extends AppCompatActivity {
 
             }
         });
-        view_mode_favorite ViewModelFav= ViewModelProviders.of(this).get(view_mode_favorite.class);
+        view_model_favorite ViewModelFav= ViewModelProviders.of(this).get(view_model_favorite.class);
         ViewModelFav.getMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
             @Override
             public void onChanged(List<Movie_1> movie_1s) {

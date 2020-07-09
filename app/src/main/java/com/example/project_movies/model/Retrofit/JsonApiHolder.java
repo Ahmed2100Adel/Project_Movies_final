@@ -1,8 +1,5 @@
 package com.example.project_movies.model.Retrofit;
 
-import androidx.lifecycle.LiveData;
-
-import com.example.project_movies.model.Models.Movie_2;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,4 +20,14 @@ public interface JsonApiHolder {
     Call<ResponseBody> getMovieAtId(@Path("id") String id,
                                @Query("api_key") String api_key ,
                                @Query("language") String language);
+
+
+
+    @GET("discover/movie")
+    Call<ResponseBody> getKidsMovies(@Query("certification_country") String certification_country
+                                     ,@Query("certification.lte") String certification_lte
+                                     ,@Query("sort_by") String sort_by
+                                     ,@Query("api_key") String api_key
+                                     ,@Query("page") int page
+    );
 }

@@ -11,9 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.Favorite_list"
+        <activity android:name=".view.forKids"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
+        <activity
+            android:name=".view.Favorite_list"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".view.Movie_details"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

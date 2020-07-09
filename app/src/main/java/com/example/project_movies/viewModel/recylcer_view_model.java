@@ -13,9 +13,15 @@ public class recylcer_view_model extends ViewModel {
 
     public LiveData<PagedList<Movie_1>> moviesList;
 
-    public recylcer_view_model() {
+    Integer state=null;
 
-        MovieDataSourceFactory movieDataSourceFactory= new MovieDataSourceFactory();
+    public  void setState(Integer state) {
+        this.state = state;
+    }
+
+    public void recylcer_view_model_start(Integer state) {
+
+        MovieDataSourceFactory movieDataSourceFactory= new MovieDataSourceFactory(state);
         PagedList.Config pagedListConfig =
                 (new PagedList.Config.Builder())
                         .setEnablePlaceholders(false)
@@ -24,4 +30,5 @@ public class recylcer_view_model extends ViewModel {
         moviesList = (new LivePagedListBuilder(movieDataSourceFactory, pagedListConfig))
                 .build();
     }
+
 }

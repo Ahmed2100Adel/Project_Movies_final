@@ -15,7 +15,7 @@ import com.example.project_movies.model.SQLite.favoriteDB ;
 
 import java.util.List;
 
-public class view_mode_favorite extends AndroidViewModel {
+public class view_model_favorite extends AndroidViewModel {
 
 
     private  repo_favoriteMovie repository;
@@ -23,7 +23,7 @@ public class view_mode_favorite extends AndroidViewModel {
     public LiveData<PagedList<Movie_1>> allMoviesPaged;
     public LiveData<List<Movie_1>> moviesAtId;
 
-    public view_mode_favorite(@NonNull Application application) {
+    public view_model_favorite(@NonNull Application application) {
         super(application);
         repository= new repo_favoriteMovie(application);
         //allFavoriteMovies=repository.allMovies;

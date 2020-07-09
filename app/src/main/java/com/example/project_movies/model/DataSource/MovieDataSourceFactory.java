@@ -11,10 +11,15 @@ public class MovieDataSourceFactory extends DataSource.Factory {
 
     MutableLiveData<PageKeyedDataSource<Integer, Movie_1>> movieDataSourceLive=new MutableLiveData<PageKeyedDataSource<Integer, Movie_1>>();
 
+    Integer state=null;
+    public MovieDataSourceFactory(Integer state) {
+        this.state=state;
+    }
+
     @NonNull
     @Override
     public DataSource create() {
-        MovieDataSource movieDataSource= new MovieDataSource();
+        MovieDataSource movieDataSource= new MovieDataSource(state);
         movieDataSourceLive.postValue(movieDataSource);
 
         return movieDataSource;

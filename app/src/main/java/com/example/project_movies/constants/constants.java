@@ -6,6 +6,8 @@ public class constants {
         public static final String API_KEY="db93980ce8f3949194e9c02bf9645258";
         public static final String SORT_BY_POPULARITY_DESC="popularity.desc";
         public static final String LANGUAGE_EN="en-US";
+        public static final String CERTIFICATION_COUNTRY_US="US";
+        public static final String CERTIFICATION_LTE="G";
     }
 
     public static class Movie_details{

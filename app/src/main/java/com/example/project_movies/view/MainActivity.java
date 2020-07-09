@@ -179,6 +179,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.forKids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.iconMore.setEnabled(true);
+                binding.recyclerViewTrending.setClickable(true);
+                Slide slide= new Slide();
+                slide.setSlideEdge(Gravity.RIGHT);
+                ViewGroup root=findViewById(R.id.moreList);
+                TransitionManager.beginDelayedTransition(root,slide);
+                binding.moreList.setVisibility(View.GONE);
+
+
+
+
+                Blurry.delete(binding.recyclerViewTrending);
+                STATE=STATE_MORE_LIST_NOT;
+                Intent intent= new Intent(MainActivity.this,forKids.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
