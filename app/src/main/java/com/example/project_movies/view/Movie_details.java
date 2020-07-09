@@ -92,7 +92,10 @@ public class Movie_details extends AppCompatActivity {
                 binding.overView.setText(movie_2.getOverview());
                 binding.genres.setText(movie_2.getGenres());
                 netflixUrl=movie_2.getHomepage();
-                if (!movie_2.getHomepage().contains("netflix.com")){
+                if (movie_2.getHomepage().contains("netflix.com")){
+                    binding.netflix.setVisibility(View.VISIBLE);
+
+                }else{
                     binding.netflix.setVisibility(View.GONE);
                     movie_2.setHomepage(null);
                 }

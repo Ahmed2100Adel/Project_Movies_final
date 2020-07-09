@@ -165,6 +165,7 @@
                 android:scaleType="fitCenter"
                 android:layout_below="@+id/important2"
                 android:id="@+id/netflix"
+                android:visibility="gone"
                 />
             <TextView
                 android:layout_width="match_parent"

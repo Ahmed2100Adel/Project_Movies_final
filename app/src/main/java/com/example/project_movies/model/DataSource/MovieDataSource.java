@@ -1,22 +1,18 @@
 package com.example.project_movies.model.DataSource;
 
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Retrofit.RetrofitClient;
 import com.example.project_movies.constants.constants;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,41 +42,58 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Movie_1> callback) {
 
-        if (CURRENT_STATE==null) {
-            load(callback,STATE_LOADING_INITIAL,CURRENT_STATE_FOR_MAIN,params);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (CURRENT_STATE==null) {
+                    load(callback,CURRENT_STATE_FOR_MAIN);
 
-        }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
-            load(callback,STATE_LOADING_INITIAL,CURRENT_STATE_FOR_KIDS,params);
-        }
-        Log.v("main",String.valueOf(1));
+                }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                    load(callback,CURRENT_STATE_FOR_KIDS);
+                }
+            }
+        });
+        thread.start();
+
     }
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Movie_1> callback) {
-        if (CURRENT_STATE==null) {
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (CURRENT_STATE==null) {
 
-            load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_MAIN,params);
-        }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
-            load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_KIDS,params);
+                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_MAIN,params);
+                }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_KIDS,params);
 
-        }
-        Log.v("main","before"+String.valueOf(params.key));
+                }
+            }
+        });
+        thread.start();
+
 
     }
 
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Movie_1> callback) {
-        if (CURRENT_STATE==null) {
-            load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_MAIN,params);
-            Log.v("main","afterBraces"+String.valueOf(params.key));
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (CURRENT_STATE==null) {
+                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_MAIN,params);
 
-        } else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
-            load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_KIDS,params);
+                } else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_KIDS,params);
 
-        }
-        Log.v("main","after"+String.valueOf(params.key));
+                }
+            }
+        });
+        thread.start();
+
 
     }
-    public void load(  LoadInitialCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull LoadInitialParams<Integer> params){
+    public void load(  LoadInitialCallback<Integer, Movie_1> callback,Integer Current_State_section){
                 if (Current_State_section==null){
                     RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, FIRST_PAGE)
                             .enqueue(new Callback<ResponseBody>() {
@@ -111,7 +124,6 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                             });
         }
     }
-
     public void load( @NonNull final LoadCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull final LoadParams<Integer> params) {
 
           if (Current_State_section==null) {
@@ -200,15 +212,11 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                 movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
             }
 
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
         return movie_1List;
-
     }
 
 }

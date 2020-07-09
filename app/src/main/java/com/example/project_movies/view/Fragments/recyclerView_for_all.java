@@ -45,25 +45,54 @@ public class recyclerView_for_all extends Fragment implements Serializable {
         recyclerView=(RecyclerView) root;
         recyclerView.setHasFixedSize(true);
 
-        int orientation=getResources().getConfiguration().orientation;
+        Thread thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int orientation=getResources().getConfiguration().orientation;
 
-        if (orientation== Configuration.ORIENTATION_LANDSCAPE){
-            gridLayoutManager=new GridLayoutManager(container.getContext(),4);
-        }else{
-             gridLayoutManager=new GridLayoutManager(container.getContext(),3);
-        }
+                if (orientation== Configuration.ORIENTATION_LANDSCAPE){
+                    gridLayoutManager=new GridLayoutManager(container.getContext(),4);
+                }else{
+                    gridLayoutManager=new GridLayoutManager(container.getContext(),3);
+                }
+                recyclerView.setLayoutManager(gridLayoutManager);
 
-        recyclerView.setLayoutManager(gridLayoutManager);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                        recyclerView.getContext(),
+                        gridLayoutManager.getOrientation());
+                recyclerView.addItemDecoration(dividerItemDecoration);
+            }
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                recyclerView.getContext(),
-                gridLayoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        });
+        thread.start();
+
+
+
 
         adapter=new adapter_recycler_view();
 
         if (CURRENT_STATE!=null){
             if (CURRENT_STATE==CURRENT_STATE_FAVORITES){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(adapter);
+
+                        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                                Intent intent= new Intent(container.getContext(), Movie_details.class);
+                                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                                intent.putExtra(constants.Movie_details.TITLE,title);
+                                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                thread1.start();
                 view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
                 ViewModel.getPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
@@ -73,22 +102,29 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                     }
                 });
 
-                recyclerView.setAdapter(adapter);
 
-                adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                        Intent intent= new Intent(container.getContext(), Movie_details.class);
-                        intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                        intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                        intent.putExtra(constants.Movie_details.TITLE,title);
-                        intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                        intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                        startActivity(intent);
-                    }
-                });
             }
             else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setAdapter(adapter);
+
+                        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+                            @Override
+                            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                                Intent intent= new Intent(container.getContext(), Movie_details.class);
+                                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                                intent.putExtra(constants.Movie_details.TITLE,title);
+                                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
+                thread1.start();
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.setState(CURRENT_STATE_FOR_KIDS);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_FOR_KIDS);
@@ -99,20 +135,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                     }
                 });
 
-                recyclerView.setAdapter(adapter);
 
-                adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-                    @Override
-                    public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                        Intent intent= new Intent(container.getContext(), Movie_details.class);
-                        intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                        intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                        intent.putExtra(constants.Movie_details.TITLE,title);
-                        intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                        intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                        startActivity(intent);
-                    }
-                });
             }
         }else{
             recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
@@ -120,24 +143,38 @@ public class recyclerView_for_all extends Fragment implements Serializable {
             ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                 @Override
                 public void onChanged(PagedList<Movie_1> movie_1s) {
-                    adapter.submitList(movie_1s);
+                    Thread thread1=new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.submitList(movie_1s);
+
+                        }
+                    });
+                    thread1.start();
                 }
             });
 
-            recyclerView.setAdapter(adapter);
-
-            adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+            Thread thread1= new Thread(new Runnable() {
                 @Override
-                public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                    Intent intent= new Intent(container.getContext(), Movie_details.class);
-                    intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                    intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                    intent.putExtra(constants.Movie_details.TITLE,title);
-                    intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                    intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                    startActivity(intent);
+                public void run() {
+                    recyclerView.setAdapter(adapter);
+
+                    adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+                        @Override
+                        public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                            Intent intent= new Intent(container.getContext(), Movie_details.class);
+                            intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                            intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                            intent.putExtra(constants.Movie_details.TITLE,title);
+                            intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                            intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                            startActivity(intent);
+                        }
+                    });
                 }
             });
+            thread1.start();
+
 
         }
 
