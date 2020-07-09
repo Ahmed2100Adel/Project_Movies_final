@@ -12,8 +12,9 @@ import com.example.project_movies.constants.constants;
 public class Movie_1 {
 
 
-
     @PrimaryKey(autoGenerate = true)
+    private int idFav;
+
     private int id;
 
     private double vote_average;
@@ -36,13 +37,23 @@ public class Movie_1 {
         this.poster_path = poster_path;
     }
 
-    public Movie_1( double vote_average, String title, String release_date, String poster_path, long timeOfInsertion) {
+    public Movie_1( int id,double vote_average, String title, String release_date, String poster_path, long timeOfInsertion) {
+        this.id=id;
         this.vote_average = vote_average;
         this.title = title;
         this.release_date = release_date;
         this.poster_path = poster_path;
         this.timeOfInsertion = timeOfInsertion;
     }
+
+    public void setIdFav(int idFav) {
+        this.idFav = idFav;
+    }
+
+    public int getIdFav() {
+        return idFav;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

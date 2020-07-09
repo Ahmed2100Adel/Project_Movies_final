@@ -107,7 +107,7 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Long tsLong = System.currentTimeMillis()/1000;
-                Movie_1 movie= new Movie_1(Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
+                Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
                 viewModelFavorits.insert(movie);
             }
         });

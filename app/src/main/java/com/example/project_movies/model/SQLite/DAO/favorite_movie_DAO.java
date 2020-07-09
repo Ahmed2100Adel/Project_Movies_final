@@ -29,5 +29,6 @@ public interface favorite_movie_DAO {
     @Query("DELETE FROM FAVORITE_MOVIES")
     void deleteAllMovies();
 
+    //@Query("SELECT * FROM favorite_movies WHERE id")
 
 }
