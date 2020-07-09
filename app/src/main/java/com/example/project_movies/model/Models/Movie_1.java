@@ -82,7 +82,6 @@ public class Movie_1 {
     }
 
     public String getPoster_path() {
-        Log.v("main",String.valueOf(timeOfInsertion));
         if (timeOfInsertion!=0.0){
             return poster_path;
         }

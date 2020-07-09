@@ -212,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
                                             "Verification Email Sent To: " + user.getEmail(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Log.e("main", "sendEmailVerification", task.getException());
                                     Toast.makeText(getApplicationContext(),
                                             "Failed To Send Verification Email!",
                                             Toast.LENGTH_SHORT).show();

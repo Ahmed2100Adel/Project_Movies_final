@@ -65,7 +65,6 @@ public class repo_Movie2{
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.v("main",t.getMessage());
 
                     }
                 });
