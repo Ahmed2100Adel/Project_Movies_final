@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(root);
 
         recyclerView_for_all fragment_trending=new recyclerView_for_all();
+        //null meaning it came from trending activity
+        fragment_trending.CURRENT_STATE=null;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(binding.recyclerViewTrending.getId(),fragment_trending)
@@ -159,6 +161,19 @@ public class MainActivity extends AppCompatActivity {
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.iconMore.setEnabled(true);
+                binding.recyclerViewTrending.setClickable(true);
+                Slide slide= new Slide();
+                slide.setSlideEdge(Gravity.RIGHT);
+                ViewGroup root=findViewById(R.id.moreList);
+                TransitionManager.beginDelayedTransition(root,slide);
+                binding.moreList.setVisibility(View.GONE);
+
+
+
+
+                Blurry.delete(binding.recyclerViewTrending);
+                STATE=STATE_MORE_LIST_NOT;
                 Intent intent= new Intent(MainActivity.this,Favorite_list.class);
                 startActivity(intent);
             }
