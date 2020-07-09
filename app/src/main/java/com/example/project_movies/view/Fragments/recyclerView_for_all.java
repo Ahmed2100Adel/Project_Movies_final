@@ -111,6 +111,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                     startActivity(intent);
                 }
             });
+
         }
 
 

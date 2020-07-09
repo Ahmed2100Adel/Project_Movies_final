@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.project_movies.R;
 import com.example.project_movies.constants.constants;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Models.Movie_2;
@@ -109,6 +111,15 @@ public class Movie_details extends AppCompatActivity {
                 Long tsLong = System.currentTimeMillis()/1000;
                 Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
                 viewModelFavorits.insert(movie);
+            }
+        });
+        view_mode_favorite ViewModelFav= ViewModelProviders.of(this).get(view_mode_favorite.class);
+        ViewModelFav.getMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
+            @Override
+            public void onChanged(List<Movie_1> movie_1s) {
+                if (movie_1s.size()>0){
+                    binding.favorite.setImageResource(R.drawable.icon_favorite_on);
+                }
             }
         });
         binding.netflix.setOnClickListener(new View.OnClickListener() {

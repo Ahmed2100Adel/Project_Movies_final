@@ -3,9 +3,13 @@ package com.example.project_movies.Repository;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.SQLite.DAO.favorite_movie_DAO;
 import com.example.project_movies.model.SQLite.favoriteDB ;
+
+import java.util.List;
 
 public class repo_favoriteMovie {
 
@@ -20,6 +24,9 @@ public class repo_favoriteMovie {
 
     }
 
+    public LiveData<List<Movie_1>> getMoviesAtId(int id){
+        return DAO.getMovieAtId(id);
+    }
 
     public void insert (Movie_1 movie){
 
@@ -35,6 +42,7 @@ public class repo_favoriteMovie {
 
         new DeleteAllFavoriteMovieAsync(DAO).execute();
     }
+
 
 
 
@@ -78,6 +86,21 @@ public class repo_favoriteMovie {
         protected Void doInBackground(Void... voids) {
             DAO.deleteAllMovies();
             return null;
+        }
+    }
+
+    public static class SelectFavMovieAtId extends AsyncTask<Integer,Void, LiveData<List<Movie_1>>> {
+    private favorite_movie_DAO DAO;
+
+        public SelectFavMovieAtId(favorite_movie_DAO DAO) {
+            this.DAO = DAO;
+        }
+
+
+        @Override
+        protected LiveData<List<Movie_1>> doInBackground(Integer... Ids) {
+            return DAO.getMovieAtId(Ids[0]);
+
         }
     }
 

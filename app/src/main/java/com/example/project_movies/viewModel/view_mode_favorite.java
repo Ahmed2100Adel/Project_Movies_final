@@ -13,12 +13,15 @@ import com.example.project_movies.Repository.repo_favoriteMovie;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.SQLite.favoriteDB ;
 
+import java.util.List;
+
 public class view_mode_favorite extends AndroidViewModel {
 
 
     private  repo_favoriteMovie repository;
     //private  LiveData<List<Favorite_movie>> allFavoriteMovies;
     public LiveData<PagedList<Movie_1>> allMoviesPaged;
+    public LiveData<List<Movie_1>> moviesAtId;
 
     public view_mode_favorite(@NonNull Application application) {
         super(application);
@@ -28,12 +31,20 @@ public class view_mode_favorite extends AndroidViewModel {
         DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getMoviesPaged();
         LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
         allMoviesPaged=livePagedListBuilder.build();
+
+
+    }
+
+    public LiveData<List<Movie_1>> getMoviesAtId(int id){
+
+        return moviesAtId=repository.getMoviesAtId(id);
     }
 
 
     public LiveData<PagedList<Movie_1>> getPagedLiveData(){
         return allMoviesPaged;
     }
+
 
 
     public void insert(Movie_1 movie){
