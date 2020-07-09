@@ -3,6 +3,7 @@ package com.example.project_movies.view.Fragments;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.viewModel.recylcer_view_model;
 import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.example.project_movies.R;
+import com.example.project_movies.viewModel.view_mode_favorite ;
 
 import java.io.Serializable;
 
@@ -29,6 +31,12 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     adapter_recycler_view adapter;
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
+
+    public static  Integer CURRENT_STATE_FAVORITES=1;
+    public static  Integer CURRENT_STATE=null;
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,28 +61,58 @@ public class recyclerView_for_all extends Fragment implements Serializable {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         adapter=new adapter_recycler_view();
-        recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
-        ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
-            @Override
-            public void onChanged(PagedList<Movie_1> movie_1s) {
-                adapter.submitList(movie_1s);
-            }
-        });
 
-        recyclerView.setAdapter(adapter);
+        if (CURRENT_STATE!=null){
+            if (CURRENT_STATE==CURRENT_STATE_FAVORITES){
+                view_mode_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_mode_favorite.class);
+                ViewModel.getPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> favorite_movies) {
+                        adapter.submitList(favorite_movies);
 
-        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-            @Override
-            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                Intent intent= new Intent(container.getContext(), Movie_details.class);
-                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                intent.putExtra(constants.Movie_details.TITLE,title);
-                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                startActivity(intent);
+                    }
+                });
+
+                recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                        Intent intent= new Intent(container.getContext(), Movie_details.class);
+                        intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                        intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                        intent.putExtra(constants.Movie_details.TITLE,title);
+                        intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                        intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                        startActivity(intent);
+                    }
+                });
             }
-        });
+        }else{
+            recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
+            ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
+                @Override
+                public void onChanged(PagedList<Movie_1> movie_1s) {
+                    adapter.submitList(movie_1s);
+                }
+            });
+
+            recyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+                @Override
+                public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                    Intent intent= new Intent(container.getContext(), Movie_details.class);
+                    intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                    intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                    intent.putExtra(constants.Movie_details.TITLE,title);
+                    intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                    intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                    startActivity(intent);
+                }
+            });
+        }
+
 
         return root;
     }

@@ -4,28 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.project_movies.constants.constants;
+import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Models.Movie_2;
-import com.example.project_movies.viewModel.recylcer_view_model;
+import com.example.project_movies.viewModel.view_mode_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
+
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -97,6 +95,22 @@ public class Movie_details extends AppCompatActivity {
             }
         });
 
+        view_mode_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_mode_favorite.class);
+        viewModelFavorits.getPagedLiveData().observe(this, new Observer<List<Movie_1>>() {
+            @Override
+            public void onChanged(List<Movie_1> favorite_movies) {
+
+            }
+        });
+
+        binding.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Long tsLong = System.currentTimeMillis()/1000;
+                Movie_1 movie= new Movie_1(Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
+                viewModelFavorits.insert(movie);
+            }
+        });
         binding.netflix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

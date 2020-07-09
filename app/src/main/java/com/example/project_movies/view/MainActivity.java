@@ -8,13 +8,9 @@ import android.os.Bundle;
 import android.transition.Slide;
 import android.transition.TransitionManager;
 import android.util.Log;
-import android.view.Choreographer;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 import com.example.project_movies.R;
 import com.example.project_movies.databinding.ActivityMainBinding;
@@ -94,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 binding.iconMore.setEnabled(false);
+                binding.recyclerViewTrending.setClickable(false);
                 Slide slide6= new Slide();
                 slide6.setSlideEdge(Gravity.RIGHT);
                 slide6.setDuration(700);
@@ -159,6 +156,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        binding.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -211,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         if (STATE==STATE_MORE_LIST_SHOWN){
 
             binding.iconMore.setEnabled(true);
-
+            binding.recyclerViewTrending.setClickable(true);
             Slide slide= new Slide();
             slide.setSlideEdge(Gravity.RIGHT);
             ViewGroup root=findViewById(R.id.moreList);

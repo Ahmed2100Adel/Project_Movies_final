@@ -1,9 +1,20 @@
 package com.example.project_movies.model.Models;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.example.project_movies.constants.constants;
+@Entity(tableName = "favorite_movies")
 public class Movie_1 {
-    private  int id;
+
+
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     private double vote_average;
 
@@ -13,6 +24,10 @@ public class Movie_1 {
 
     private String poster_path;
 
+    private long timeOfInsertion=0;
+
+
+    @Ignore
     public Movie_1(int id, double vote_average, String title, String release_date, String poster_path) {
         this.id = id;
         this.vote_average = vote_average;
@@ -21,7 +36,23 @@ public class Movie_1 {
         this.poster_path = poster_path;
     }
 
+    public Movie_1( double vote_average, String title, String release_date, String poster_path, long timeOfInsertion) {
+        this.vote_average = vote_average;
+        this.title = title;
+        this.release_date = release_date;
+        this.poster_path = poster_path;
+        this.timeOfInsertion = timeOfInsertion;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public long getTimeOfInsertion() {
+        return timeOfInsertion;
+    }
 
+    public void setTimeOfInsertion(long timeOfInsertion) {
+        this.timeOfInsertion = timeOfInsertion;
+    }
 
     public int getId() {
         return id;
@@ -40,6 +71,10 @@ public class Movie_1 {
     }
 
     public String getPoster_path() {
+        Log.v("main",String.valueOf(timeOfInsertion));
+        if (timeOfInsertion!=0.0){
+            return poster_path;
+        }
         String url="https://image.tmdb.org/t/p/w185/"+poster_path+"?api_key="+constants.THEMOVIEDB.API_KEY;
         return url;
     }

@@ -1,5 +1,6 @@
 package com.example.project_movies.viewModel;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
         Glide.with(holder.imageView.getContext())
                 .load(movie1.getPoster_path())
                 .into(holder.imageView);
+        Log.v("main",movie1.getPoster_path());
 
     }
 
