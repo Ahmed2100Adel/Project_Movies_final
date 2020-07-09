@@ -87,8 +87,8 @@ public class Movie_details extends AppCompatActivity {
         viewModel.getMovie2(id).observe(this, new Observer<Movie_2>() {
             @Override
             public void onChanged(Movie_2 movie_2) {
-                if (!movie_2.isAdult()){
-                    binding.forAdults.setVisibility(View.GONE);
+                if (movie_2.isAdult()){
+                    binding.forAdults.setVisibility(View.VISIBLE);
                 }
                 binding.overView.setText(movie_2.getOverview());
                 binding.genres.setText(movie_2.getGenres());
