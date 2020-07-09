@@ -20,13 +20,13 @@ public class forKids extends AppCompatActivity {
         View root=binding.getRoot();
         setContentView(root);
 
-        recyclerView_for_all fragment_trending=new recyclerView_for_all();
+        recyclerView_for_all fragment_for_kids=new recyclerView_for_all();
         //null meaning it came from trending activity
 
-        fragment_trending.CURRENT_STATE=fragment_trending.CURRENT_STATE_FOR_KIDS;
+        fragment_for_kids.CURRENT_STATE=fragment_for_kids.CURRENT_STATE_FOR_KIDS;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(binding.recyclerViewTrending.getId(),fragment_trending)
+                .add(binding.recyclerViewTrending.getId(),fragment_for_kids)
                 .commit();
     }
 }
