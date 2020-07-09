@@ -46,6 +46,9 @@ public class view_mode_favorite extends AndroidViewModel {
     }
 
 
+    public void deleteAtId(int id){
+        repository.deleteAtId(id);
+    }
 
     public void insert(Movie_1 movie){
         repository.insert(movie);

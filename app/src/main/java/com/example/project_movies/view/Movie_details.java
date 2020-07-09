@@ -36,6 +36,8 @@ public class Movie_details extends AppCompatActivity {
 
     private ActivityMovieDetailsBinding binding;
     String netflixUrl=null;
+    boolean favorite=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,8 @@ public class Movie_details extends AppCompatActivity {
         String  poster_url= getIntent().getStringExtra(constants.Movie_details.POSTER_URL);
         String  vote_average= getIntent().getStringExtra(constants.Movie_details.VOTE_AVERAGE);
         String  id= getIntent().getStringExtra(constants.Movie_details.ID);
+
+
 
         binding.textReleaseDate.setText(release_date);
         binding.texVoteAverage.setText(vote_average);
@@ -108,9 +112,14 @@ public class Movie_details extends AppCompatActivity {
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Long tsLong = System.currentTimeMillis()/1000;
-                Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
-                viewModelFavorits.insert(movie);
+                if (favorite){
+                    viewModelFavorits.deleteAtId(Integer.valueOf(id));
+                }else{
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
+                    viewModelFavorits.insert(movie);
+                }
+
             }
         });
         view_mode_favorite ViewModelFav= ViewModelProviders.of(this).get(view_mode_favorite.class);
@@ -118,7 +127,12 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onChanged(List<Movie_1> movie_1s) {
                 if (movie_1s.size()>0){
+
                     binding.favorite.setImageResource(R.drawable.icon_favorite_on);
+                    favorite=true;
+                }else{
+                    binding.favorite.setImageResource(R.drawable.icon_favorite_not);
+                    favorite=false;
                 }
             }
         });

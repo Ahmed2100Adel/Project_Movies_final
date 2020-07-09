@@ -43,6 +43,9 @@ public class repo_favoriteMovie {
         new DeleteAllFavoriteMovieAsync(DAO).execute();
     }
 
+    public void deleteAtId(int id){
+        new DeleteFavoriteMovieAtIdAsync(DAO).execute(id);
+    }
 
 
 
@@ -70,6 +73,20 @@ public class repo_favoriteMovie {
         @Override
         protected Void doInBackground(Movie_1... favorite_movies) {
             DAO.deleteFavoriteMovie(favorite_movies[0]);
+            return null;
+        }
+    }
+
+    public static class DeleteFavoriteMovieAtIdAsync extends AsyncTask<Integer,Void,Void>{
+    private favorite_movie_DAO DAO;
+
+        public DeleteFavoriteMovieAtIdAsync(favorite_movie_DAO DAO) {
+            this.DAO = DAO;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... Ids) {
+            DAO.deleteAtId(Ids[0]);
             return null;
         }
     }

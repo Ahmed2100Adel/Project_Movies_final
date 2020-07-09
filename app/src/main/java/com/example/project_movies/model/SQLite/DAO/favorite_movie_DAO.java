@@ -20,6 +20,8 @@ public interface favorite_movie_DAO {
     @Delete
     void deleteFavoriteMovie(Movie_1 movie);
 
+    @Query("DELETE FROM favorite_movies WHERE id =:id")
+    void deleteAtId(int id);
 
     @Query("SELECT * FROM favorite_movies ORDER BY timeOfInsertion DESC")
     DataSource.Factory<Integer,Movie_1> getMoviesPaged();
