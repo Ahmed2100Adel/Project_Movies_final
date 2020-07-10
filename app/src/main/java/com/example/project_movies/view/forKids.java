@@ -2,13 +2,11 @@ package com.example.project_movies.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
 import android.os.Bundle;
 import android.view.View;
-
-import com.example.project_movies.R;
 import com.example.project_movies.databinding.ActivityForKidsBinding;
 import com.example.project_movies.view.Fragments.recyclerView_for_all;
+
 
 public class forKids extends AppCompatActivity {
 
@@ -28,5 +26,13 @@ public class forKids extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .add(binding.recyclerViewTrending.getId(),fragment_for_kids)
                 .commit();
+
+        binding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
 }

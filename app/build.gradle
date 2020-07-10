@@ -64,6 +64,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
+
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

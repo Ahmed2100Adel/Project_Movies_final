@@ -35,6 +35,11 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     public static  Integer CURRENT_STATE_FOR_KIDS=2;
     public static  Integer CURRENT_STATE=null;
 
+    public adapter_recycler_view getAdapter(){
+        return adapter;
+    }
+
+
 
 
     @Nullable

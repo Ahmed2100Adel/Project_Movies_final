@@ -32,9 +32,17 @@
             android:background="@color/colorPrimary"
             app:title="Favorites"
             app:titleTextColor="#000"
+            android:layout_weight="1"
             >
 
-
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_cancel"
+                android:layout_gravity="end"
+                android:layout_margin="16dp"
+                android:id="@+id/close"
+                />
 
         </androidx.appcompat.widget.Toolbar>
 

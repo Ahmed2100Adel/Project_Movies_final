@@ -193,7 +193,7 @@
             android:id="@+id/icon_more"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_gravity="end"
+                android:layout_gravity="end"
             android:src="@drawable/icon_more"
             android:layout_margin="16dp"
 

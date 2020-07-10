@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.project_movies.R;
+import com.example.project_movies.constants.constants;
 import com.example.project_movies.databinding.ActivityMainBinding;
+import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static  int STATE_MORE_LIST_SHOWN=2;
     public static  int STATE=STATE_MORE_LIST_NOT;
 
+
+    recyclerView_for_all fragment_trending;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(root);
 
-        recyclerView_for_all fragment_trending=new recyclerView_for_all();
+         fragment_trending=new recyclerView_for_all();
         //null meaning it came from trending activity
         fragment_trending.CURRENT_STATE=null;
         FragmentManager fragmentManager=getSupportFragmentManager();
@@ -90,70 +94,9 @@ public class MainActivity extends AppCompatActivity {
         binding.iconMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                binding.iconMore.setEnabled(false);
-                binding.recyclerViewTrending.setClickable(false);
-                Slide slide6= new Slide();
-                slide6.setSlideEdge(Gravity.RIGHT);
-                slide6.setDuration(700);
-                ViewGroup root6=binding.moreList;
-                TransitionManager.beginDelayedTransition(root6,slide6);
-                binding.moreList.setVisibility(View.VISIBLE);
-
-                Blurry.with(MainActivity.this)
-                        .radius(25).
-                        sampling(2)
-                        .animate()
-                        .onto(binding.recyclerViewTrending);
-                Slide slide= new Slide();
-                slide.setSlideEdge(Gravity.RIGHT);
-                slide.setDuration(700);
-                ViewGroup root=binding.root;
-                TransitionManager.beginDelayedTransition(root,slide);
-                binding.forKids.setVisibility(View.VISIBLE);
-
-
-                Slide slide2= new Slide();
-                slide2.setSlideEdge(Gravity.RIGHT);
-                slide2.setDuration(700);
-                ViewGroup root2=binding.root;
-                TransitionManager.beginDelayedTransition(root2,slide2);
-                binding.popular.setVisibility(View.VISIBLE);
-
-
-                Slide slide3= new Slide();
-                slide3.setSlideEdge(Gravity.LEFT);
-                slide3.setDuration(700);
-                TransitionManager.beginDelayedTransition(root,slide3);
-                binding.best2020.setVisibility(View.VISIBLE);
-
-
-                Slide slide4= new Slide();
-                slide4.setSlideEdge(Gravity.LEFT);
-                slide4.setDuration(700);
-                ViewGroup root4=binding.root;
-                TransitionManager.beginDelayedTransition(root4,slide4);
-                binding.highestRate.setVisibility(View.VISIBLE);
-
-
-                Slide slide5= new Slide();
-                slide5.setSlideEdge(Gravity.BOTTOM);
-
-                slide5.setDuration(1200);
-                ViewGroup root5=binding.root;
-                TransitionManager.beginDelayedTransition(root5,slide5);
-                binding.favorite.setVisibility(View.VISIBLE);
-
-
-
-               /* binding.moreList.setAlpha(0.0f);
-                // Start the animation
-                binding.moreList.animate()
-                        .alpha(1.0f)
-                        .setListener(null);
-                binding.moreList.setVisibility(View.VISIBLE);*/
+               showMoreList();
                 STATE=STATE_MORE_LIST_SHOWN;
-
+                disableRecyclerView();
             }
         });
 
@@ -161,19 +104,7 @@ public class MainActivity extends AppCompatActivity {
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.iconMore.setEnabled(true);
-                binding.recyclerViewTrending.setClickable(true);
-                Slide slide= new Slide();
-                slide.setSlideEdge(Gravity.RIGHT);
-                ViewGroup root=findViewById(R.id.moreList);
-                TransitionManager.beginDelayedTransition(root,slide);
-                binding.moreList.setVisibility(View.GONE);
-
-
-
-
-                Blurry.delete(binding.recyclerViewTrending);
-                STATE=STATE_MORE_LIST_NOT;
+                goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,Favorite_list.class);
                 startActivity(intent);
             }
@@ -182,19 +113,7 @@ public class MainActivity extends AppCompatActivity {
         binding.forKids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.iconMore.setEnabled(true);
-                binding.recyclerViewTrending.setClickable(true);
-                Slide slide= new Slide();
-                slide.setSlideEdge(Gravity.RIGHT);
-                ViewGroup root=findViewById(R.id.moreList);
-                TransitionManager.beginDelayedTransition(root,slide);
-                binding.moreList.setVisibility(View.GONE);
-
-
-
-
-                Blurry.delete(binding.recyclerViewTrending);
-                STATE=STATE_MORE_LIST_NOT;
+                goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,forKids.class);
                 startActivity(intent);
             }
@@ -202,6 +121,102 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void goToOtherActivity(){
+        binding.iconMore.setEnabled(true);
+        binding.recyclerViewTrending.setClickable(true);
+        Slide slide= new Slide();
+        slide.setSlideEdge(Gravity.RIGHT);
+        ViewGroup root=findViewById(R.id.moreList);
+        TransitionManager.beginDelayedTransition(root,slide);
+        binding.moreList.setVisibility(View.GONE);
+
+        enableRecyclerView();
+        Blurry.delete(binding.recyclerViewTrending);
+        STATE=STATE_MORE_LIST_NOT;
+    }
+    private void disableRecyclerView() {
+
+        fragment_trending.getAdapter().setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int id, double voteAverage, String title, String releaseDate, String posterUrl) {
+
+            }
+        });
+
+    }
+
+    private void enableRecyclerView(){
+        fragment_trending.getAdapter().setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int id, double voteAverage, String title, String releaseDate, String posterUrl) {
+                Intent intent= new Intent(MainActivity.this, Movie_details.class);
+                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                intent.putExtra(constants.Movie_details.TITLE,title);
+                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    public void showMoreList(){
+        binding.iconMore.setEnabled(false);
+        binding.recyclerViewTrending.setClickable(false);
+        Slide slide6= new Slide();
+        slide6.setSlideEdge(Gravity.RIGHT);
+        slide6.setDuration(700);
+        ViewGroup root6=binding.moreList;
+        TransitionManager.beginDelayedTransition(root6,slide6);
+        binding.moreList.setVisibility(View.VISIBLE);
+
+        Blurry.with(MainActivity.this)
+                .radius(25).
+                sampling(2)
+                .animate()
+                .onto(binding.recyclerViewTrending);
+        Slide slide= new Slide();
+        slide.setSlideEdge(Gravity.RIGHT);
+        slide.setDuration(700);
+        ViewGroup root=binding.root;
+        TransitionManager.beginDelayedTransition(root,slide);
+        binding.forKids.setVisibility(View.VISIBLE);
+
+
+        Slide slide2= new Slide();
+        slide2.setSlideEdge(Gravity.RIGHT);
+        slide2.setDuration(700);
+        ViewGroup root2=binding.root;
+        TransitionManager.beginDelayedTransition(root2,slide2);
+        binding.popular.setVisibility(View.VISIBLE);
+
+
+        Slide slide3= new Slide();
+        slide3.setSlideEdge(Gravity.LEFT);
+        slide3.setDuration(700);
+        TransitionManager.beginDelayedTransition(root,slide3);
+        binding.best2020.setVisibility(View.VISIBLE);
+
+
+        Slide slide4= new Slide();
+        slide4.setSlideEdge(Gravity.LEFT);
+        slide4.setDuration(700);
+        ViewGroup root4=binding.root;
+        TransitionManager.beginDelayedTransition(root4,slide4);
+        binding.highestRate.setVisibility(View.VISIBLE);
+
+
+        Slide slide5= new Slide();
+        slide5.setSlideEdge(Gravity.BOTTOM);
+
+        slide5.setDuration(1200);
+        ViewGroup root5=binding.root;
+        TransitionManager.beginDelayedTransition(root5,slide5);
+        binding.favorite.setVisibility(View.VISIBLE);
+
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -256,12 +271,9 @@ public class MainActivity extends AppCompatActivity {
             ViewGroup root=findViewById(R.id.moreList);
             TransitionManager.beginDelayedTransition(root,slide);
             binding.moreList.setVisibility(View.GONE);
-
-
-
-
             Blurry.delete(binding.recyclerViewTrending);
             STATE=STATE_MORE_LIST_NOT;
+            enableRecyclerView();
         }else{
             finish();
 

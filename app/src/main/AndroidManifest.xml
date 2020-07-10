@@ -13,10 +13,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.forKids"
             android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".view.MainActivity"
             />
         <activity
             android:name=".view.Favorite_list"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".view.MainActivity"
+            />
         <activity
             android:name=".view.Movie_details"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

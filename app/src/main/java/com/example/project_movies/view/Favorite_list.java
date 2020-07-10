@@ -27,5 +27,13 @@ public class Favorite_list extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .add(binding.recyclerViewTrending.getId(),fragment_trending)
                 .commit();
+
+        binding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 }
