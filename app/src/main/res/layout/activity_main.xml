@@ -35,10 +35,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See all >>"
+                android:text="See more >>"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="16dp"
+                android:id="@+id/seeMoreTrending"
+                />
         </LinearLayout>
 
         <FrameLayout

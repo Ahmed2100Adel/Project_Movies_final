@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 import com.example.project_movies.view.Fragments.recyclerView_for_all ;
-import com.example.project_movies.horizental_recyclerView_for_all  ;
+import com.example.project_movies.view.Fragments.horizental_recyclerView_for_all;
 
 import jp.wasabeef.blurry.Blurry;
 
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final Integer TYPE_TRENDING=3;
-    recyclerView_for_all fragment_trending;
     private horizental_recyclerView_for_all recyclerViewForAll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.seeMoreTrending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,trending_now.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void goToOtherActivity(){
@@ -147,28 +153,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private void disableRecyclerView() {
 
-        fragment_trending.getAdapter().setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-            @Override
-            public void OnItemClick(int id, double voteAverage, String title, String releaseDate, String posterUrl) {
 
-            }
-        });
 
     }
 
     private void enableRecyclerView(){
-        fragment_trending.getAdapter().setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-            @Override
-            public void OnItemClick(int id, double voteAverage, String title, String releaseDate, String posterUrl) {
-                Intent intent= new Intent(MainActivity.this, Movie_details.class);
-                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                intent.putExtra(constants.Movie_details.TITLE,title);
-                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                startActivity(intent);
-            }
-        });
+
     }
 
 

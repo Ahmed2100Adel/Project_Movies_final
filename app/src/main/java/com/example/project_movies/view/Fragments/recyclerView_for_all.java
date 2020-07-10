@@ -36,7 +36,8 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     public static  Integer CURRENT_STATE_FOR_KIDS=2;
     public static  Integer CURRENT_STATE_TRENDING=3;
     public static  Integer CURRENT_STATE=null;
-
+    public static final Integer TYPE_HORIZENTAL=100;
+    public static final Integer TYPE_VERTICAL=101;
     public adapter_recycler_view getAdapter(){
         return adapter;
     }
@@ -94,7 +95,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 thread1.start();
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.setState(CURRENT_STATE_FOR_KIDS);
-                ViewModel.recylcer_view_model_start(CURRENT_STATE_FOR_KIDS);
+                ViewModel.recylcer_view_model_start(CURRENT_STATE_FOR_KIDS,TYPE_VERTICAL);
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {
@@ -107,7 +108,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
             else if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)){
                 Log.v("main","1");
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
-                ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING);
+                ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_VERTICAL);
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {

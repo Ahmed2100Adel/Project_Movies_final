@@ -1,4 +1,4 @@
-package com.example.project_movies;
+package com.example.project_movies.view.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,21 +10,23 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
+import com.example.project_movies.MyItemRecyclerViewAdapter;
+import com.example.project_movies.R;
 import com.example.project_movies.constants.constants;
 import com.example.project_movies.dummy.DummyContent;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.view.Movie_details;
 import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.example.project_movies.viewModel.recylcer_view_model;
+
+import static com.example.project_movies.model.DataSource.MovieDataSource.TYPE_HORIZENTAL;
 
 /**
  * A fragment representing a list of Items.
@@ -41,7 +43,8 @@ public class horizental_recyclerView_for_all extends Fragment {
     adapter_recycler_view adapter;
     RecyclerView recyclerView;
 
-
+    public static final Integer TYPE_HORIZENTAL=100;
+    public static final Integer TYPE_VERTICAL=101;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -93,7 +96,7 @@ public class horizental_recyclerView_for_all extends Fragment {
 
             if (type.equals(TYPE_TRENDING)){
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
-                ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING);
+                ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_HORIZENTAL);
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {

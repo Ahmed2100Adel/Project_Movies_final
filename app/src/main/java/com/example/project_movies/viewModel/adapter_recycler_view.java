@@ -60,8 +60,9 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
                 holder.text_releaseDate.setText(movie1.getRelease_date());
                 holder.tex_vote_average.setText(String.valueOf(movie1.getVote_average()));
 
+        if (movie1.getId()==-1){
 
-
+        }
 
     }
 

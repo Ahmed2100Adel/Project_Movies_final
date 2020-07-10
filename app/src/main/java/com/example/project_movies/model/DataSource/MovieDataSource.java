@@ -32,9 +32,16 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     public static final int STATE_LOADING_AFTER=13;
     public static final int STATE_LOADING_BEFORE=14;
 
-    public MovieDataSource(Integer state) {
+    public static final Integer TYPE_HORIZENTAL=100;
+    public static final Integer TYPE_VERTICAL=101;
+    public static  Integer type=-1;
+
+    public MovieDataSource(Integer state,Integer type) {
         if (state.equals(CURRENT_STATE_TRENDING)|| state.equals(CURRENT_STATE_FOR_KIDS)){
             CURRENT_STATE=state;
+        }
+        if (type.equals(TYPE_HORIZENTAL)||type.equals(TYPE_VERTICAL)){
+            this.type=type;
         }
     }
 
@@ -63,9 +70,9 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
             public void run() {
                 if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)) {
 
-                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_TRENDING,params);
+                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_TRENDING,params,type);
                 }else if (CURRENT_STATE.equals(CURRENT_STATE_FOR_KIDS)){
-                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_KIDS,params);
+                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_KIDS,params,type);
 
                 }
             }
@@ -81,10 +88,10 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
             @Override
             public void run() {
                 if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)) {
-                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_TRENDING,params);
+                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_TRENDING,params,type);
 
                 } else if (CURRENT_STATE.equals(CURRENT_STATE_FOR_KIDS)){
-                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_KIDS,params);
+                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_KIDS,params,type);
 
                 }
             }
@@ -124,7 +131,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                             });
         }
     }
-    public void load( @NonNull final LoadCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull final LoadParams<Integer> params) {
+    public void load( @NonNull final LoadCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull final LoadParams<Integer> params,Integer type) {
 
           if (Current_State_section.equals(CURRENT_STATE_TRENDING)) {
               RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, params.key)
@@ -141,13 +148,24 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                                           callback.onResult(parseJson(response), adjacentKey);
                                       }
                                   } else if (State_loading == STATE_LOADING_AFTER) {
-                                      Integer adjacentKey = (params.key < 2) ? params.key + 1 : null;
-                                      if (response.body() != null) {
+                                      if (type.equals(TYPE_HORIZENTAL)){
+                                          Integer adjacentKey = (params.key < 1) ? params.key + 1 : null;
+                                          if (response.body() != null) {
 
-                                          //passing the loaded data
-                                          //and the previous page key
-                                          callback.onResult(parseJson(response), adjacentKey);
+                                              //passing the loaded data
+                                              //and the previous page key
+                                              callback.onResult(parseJson(response), adjacentKey);
+                                          }
+                                      }else{
+                                          Integer adjacentKey = (params.key < 3) ? params.key + 1 : null;
+                                          if (response.body() != null) {
+
+                                              //passing the loaded data
+                                              //and the previous page key
+                                              callback.onResult(parseJson(response), adjacentKey);
+                                          }
                                       }
+
                                   }
                           }
                           @Override
@@ -172,13 +190,26 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                                       callback.onResult(parseJson(response), adjacentKey);
                                   }
                               } else if (State_loading == STATE_LOADING_AFTER) {
-                                  Integer adjacentKey = (params.key < 500) ? params.key + 1 : null;
-                                  if (response.body() != null) {
 
-                                      //passing the loaded data
-                                      //and the previous page key
-                                      callback.onResult(parseJson(response), adjacentKey);
+                                  if (type.equals(TYPE_HORIZENTAL)){
+                                      Integer adjacentKey = (params.key < 1) ? params.key + 1 : null;
+                                      if (response.body() != null) {
+
+                                          //passing the loaded data
+                                          //and the previous page key
+                                          callback.onResult(parseJson(response), adjacentKey);
+                                      }
+                                  }else{
+                                      Integer adjacentKey = (params.key < 3) ? params.key + 1 : null;
+                                      if (response.body() != null) {
+
+                                          //passing the loaded data
+                                          //and the previous page key
+                                          callback.onResult(parseJson(response), adjacentKey);
+                                      }
                                   }
+
+
                               }
                           }
 
@@ -209,9 +240,17 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                 String title = jsonObject.optString("title");
                 String release_date = jsonObject.optString("release_date");
                 String poster_path = jsonObject.optString("poster_path");
+
                 movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
             }
 
+            /*int id = -1;
+            double vote_average =-1;
+            String title ="-1";
+            String release_date ="-1";
+            String poster_path = "-1";
+
+            movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

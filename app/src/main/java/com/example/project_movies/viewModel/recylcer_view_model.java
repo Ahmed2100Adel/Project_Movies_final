@@ -19,9 +19,9 @@ public class recylcer_view_model extends ViewModel {
         this.state = state;
     }
 
-    public void recylcer_view_model_start(Integer state) {
+    public void recylcer_view_model_start(Integer state,Integer type) {
 
-        MovieDataSourceFactory movieDataSourceFactory= new MovieDataSourceFactory(state);
+        MovieDataSourceFactory movieDataSourceFactory= new MovieDataSourceFactory(state,type);
         PagedList.Config pagedListConfig =
                 (new PagedList.Config.Builder())
                         .setEnablePlaceholders(false)
