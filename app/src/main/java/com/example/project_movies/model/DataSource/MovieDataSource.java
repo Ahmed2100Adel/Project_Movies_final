@@ -141,7 +141,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                                           callback.onResult(parseJson(response), adjacentKey);
                                       }
                                   } else if (State_loading == STATE_LOADING_AFTER) {
-                                      Integer adjacentKey = (params.key < 500) ? params.key + 1 : null;
+                                      Integer adjacentKey = (params.key < 2) ? params.key + 1 : null;
                                       if (response.body() != null) {
 
                                           //passing the loaded data
