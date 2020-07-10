@@ -25,7 +25,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     public static final int PAGE_SIZE=20;
 
     public static  Integer CURRENT_STATE_FOR_KIDS=2;
-    public static  Integer CURRENT_STATE_FOR_MAIN=null;
+    public static  Integer CURRENT_STATE_TRENDING=3;
     public static  Integer CURRENT_STATE=null;
 
     public static final int STATE_LOADING_INITIAL=12;
@@ -33,7 +33,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     public static final int STATE_LOADING_BEFORE=14;
 
     public MovieDataSource(Integer state) {
-        if (state==null||state==CURRENT_STATE_FOR_KIDS){
+        if (state.equals(CURRENT_STATE_TRENDING)|| state.equals(CURRENT_STATE_FOR_KIDS)){
             CURRENT_STATE=state;
         }
     }
@@ -45,10 +45,10 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                if (CURRENT_STATE==null) {
-                    load(callback,CURRENT_STATE_FOR_MAIN);
+                if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)) {
+                    load(callback,CURRENT_STATE_TRENDING);
 
-                }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                }else if (CURRENT_STATE.equals(CURRENT_STATE_FOR_KIDS)){
                     load(callback,CURRENT_STATE_FOR_KIDS);
                 }
             }
@@ -61,10 +61,10 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                if (CURRENT_STATE==null) {
+                if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)) {
 
-                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_MAIN,params);
-                }else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                    load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_TRENDING,params);
+                }else if (CURRENT_STATE.equals(CURRENT_STATE_FOR_KIDS)){
                     load(callback,STATE_LOADING_BEFORE,CURRENT_STATE_FOR_KIDS,params);
 
                 }
@@ -80,10 +80,10 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                if (CURRENT_STATE==null) {
-                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_MAIN,params);
+                if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)) {
+                    load(callback,STATE_LOADING_AFTER,CURRENT_STATE_TRENDING,params);
 
-                } else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
+                } else if (CURRENT_STATE.equals(CURRENT_STATE_FOR_KIDS)){
                     load(callback,STATE_LOADING_AFTER,CURRENT_STATE_FOR_KIDS,params);
 
                 }
@@ -94,7 +94,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
 
     }
     public void load(  LoadInitialCallback<Integer, Movie_1> callback,Integer Current_State_section){
-                if (Current_State_section==null){
+                if (Current_State_section.equals(CURRENT_STATE_TRENDING)){
                     RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, FIRST_PAGE)
                             .enqueue(new Callback<ResponseBody>() {
                                 @Override
@@ -126,7 +126,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     }
     public void load( @NonNull final LoadCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull final LoadParams<Integer> params) {
 
-          if (Current_State_section==null) {
+          if (Current_State_section.equals(CURRENT_STATE_TRENDING)) {
               RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, params.key)
                       .enqueue(new Callback<ResponseBody>() {
                           @Override

@@ -3,6 +3,7 @@ package com.example.project_movies.view.Fragments;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
     public static  Integer CURRENT_STATE_FAVORITES=1;
     public static  Integer CURRENT_STATE_FOR_KIDS=2;
+    public static  Integer CURRENT_STATE_TRENDING=3;
     public static  Integer CURRENT_STATE=null;
 
     public adapter_recycler_view getAdapter(){
@@ -47,54 +49,27 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root=inflater.inflate(R.layout.reclerview_for_all,container,false);
 
+        //main configuration for all situations
         recyclerView=(RecyclerView) root;
         recyclerView.setHasFixedSize(true);
 
         Thread thread= new Thread(new Runnable() {
             @Override
             public void run() {
-                int orientation=getResources().getConfiguration().orientation;
-
-                if (orientation== Configuration.ORIENTATION_LANDSCAPE){
-                    gridLayoutManager=new GridLayoutManager(container.getContext(),4);
-                }else{
-                    gridLayoutManager=new GridLayoutManager(container.getContext(),3);
-                }
-                recyclerView.setLayoutManager(gridLayoutManager);
-
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                        recyclerView.getContext(),
-                        gridLayoutManager.getOrientation());
-                recyclerView.addItemDecoration(dividerItemDecoration);
+                settingDecoration(container);
             }
 
         });
         thread.start();
-
-
-
-
         adapter=new adapter_recycler_view();
+
 
         if (CURRENT_STATE!=null){
             if (CURRENT_STATE==CURRENT_STATE_FAVORITES){
                 Thread thread1= new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerView.setAdapter(adapter);
-
-                        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                                Intent intent= new Intent(container.getContext(), Movie_details.class);
-                                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                                intent.putExtra(constants.Movie_details.TITLE,title);
-                                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                                startActivity(intent);
-                            }
-                        });
+                        settingAdapterAndClickListener(container);
                     }
                 });
                 thread1.start();
@@ -113,20 +88,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 Thread thread1= new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerView.setAdapter(adapter);
-
-                        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                                Intent intent= new Intent(container.getContext(), Movie_details.class);
-                                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                                intent.putExtra(constants.Movie_details.TITLE,title);
-                                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                                startActivity(intent);
-                            }
-                        });
+                        settingAdapterAndClickListener(container);
                     }
                 });
                 thread1.start();
@@ -142,7 +104,34 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
 
             }
-        }else{
+            else if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)){
+                Log.v("main","1");
+                recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
+                ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING);
+                ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> movie_1s) {
+                        Thread thread1=new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.submitList(movie_1s);
+
+                            }
+                        });
+                        thread1.start();
+                    }
+                });
+
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        settingAdapterAndClickListener(container);
+                    }
+                });
+                thread1.start();
+            }
+        }
+        /*else{
             recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
             ViewModel.recylcer_view_model_start(null);
             ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
@@ -162,26 +151,13 @@ public class recyclerView_for_all extends Fragment implements Serializable {
             Thread thread1= new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    recyclerView.setAdapter(adapter);
-
-                    adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
-                        @Override
-                        public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
-                            Intent intent= new Intent(container.getContext(), Movie_details.class);
-                            intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
-                            intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
-                            intent.putExtra(constants.Movie_details.TITLE,title);
-                            intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
-                            intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
-                            startActivity(intent);
-                        }
-                    });
+                    settingAdapterAndClickListener(container);
                 }
             });
             thread1.start();
 
 
-        }
+        }*/
 
 
         return root;
@@ -201,5 +177,40 @@ public class recyclerView_for_all extends Fragment implements Serializable {
             recyclerView.setLayoutManager(gridLayoutManager);
         }
     }
+
+    private void settingAdapterAndClickListener(@Nullable ViewGroup container){
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {
+            @Override
+            public void OnItemClick(int id,double voteAverage,String title,String releaseDate,String posterUrl) {
+                Intent intent= new Intent(container.getContext(), Movie_details.class);
+                intent.putExtra(constants.Movie_details.ID,String.valueOf(id));
+                intent.putExtra(constants.Movie_details.VOTE_AVERAGE,String.valueOf(voteAverage));
+                intent.putExtra(constants.Movie_details.TITLE,title);
+                intent.putExtra(constants.Movie_details.RELEASE_DATE,releaseDate);
+                intent.putExtra(constants.Movie_details.POSTER_URL,posterUrl);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    private void settingDecoration(@Nullable ViewGroup container){
+        int orientation=getResources().getConfiguration().orientation;
+
+        if (orientation== Configuration.ORIENTATION_LANDSCAPE){
+            gridLayoutManager=new GridLayoutManager(container.getContext(),4);
+        }else{
+            gridLayoutManager=new GridLayoutManager(container.getContext(),3);
+        }
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(),
+                gridLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
 }
 

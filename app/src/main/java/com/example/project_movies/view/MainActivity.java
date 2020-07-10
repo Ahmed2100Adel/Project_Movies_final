@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
          fragment_trending=new recyclerView_for_all();
         //null meaning it came from trending activity
-        fragment_trending.CURRENT_STATE=null;
+        fragment_trending.CURRENT_STATE=fragment_trending.CURRENT_STATE_TRENDING;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(binding.recyclerViewTrending.getId(),fragment_trending)
