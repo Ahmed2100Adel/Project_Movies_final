@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 import com.example.project_movies.view.Fragments.recyclerView_for_all ;
+import com.example.project_movies.horizental_recyclerView_for_all  ;
 
 import jp.wasabeef.blurry.Blurry;
 
@@ -41,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     public static  int STATE=STATE_MORE_LIST_NOT;
 
 
+    public static final Integer TYPE_TRENDING=3;
     recyclerView_for_all fragment_trending;
+    private horizental_recyclerView_for_all recyclerViewForAll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,14 +86,15 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(root);
 
-         fragment_trending=new recyclerView_for_all();
+         /*fragment_trending=new recyclerView_for_all();
         //null meaning it came from trending activity
         fragment_trending.CURRENT_STATE=fragment_trending.CURRENT_STATE_TRENDING;
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(binding.recyclerViewTrending.getId(),fragment_trending)
-                .commit();
+                .commit();*/
 
+        buileFragment(TYPE_TRENDING);
         binding.iconMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,6 +172,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void buileFragment(Integer type){
+        recyclerViewForAll=  horizental_recyclerView_for_all.newInstance(3);
+        recyclerViewForAll.setType(TYPE_TRENDING);
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(binding.recyclerViewTrending.getId(),recyclerViewForAll)
+                .commit();
+    }
     public void showMoreList(){
         binding.iconMore.setEnabled(false);
         binding.recyclerViewTrending.setClickable(false);
