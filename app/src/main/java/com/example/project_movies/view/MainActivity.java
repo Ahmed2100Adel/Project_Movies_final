@@ -100,6 +100,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.trendingNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,trending_now.class);
+                startActivity(intent);
+            }
+        });
 
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override

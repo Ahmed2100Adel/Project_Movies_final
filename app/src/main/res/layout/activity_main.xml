@@ -184,10 +184,18 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:background="@color/colorPrimary"
-            app:title="Trending now"
+            app:title="Movies"
             app:titleTextColor="#000"
             >
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_trend_up"
+            android:layout_gravity="center"
+            android:id="@+id/trending_now"
+            />
 
         <ImageView
             android:id="@+id/icon_more"
