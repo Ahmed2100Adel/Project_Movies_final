@@ -99,9 +99,9 @@ public class Movie_details extends AppCompatActivity {
             public void onChanged(Movie_2 movie_2) {
                 //Toast.makeText(Movie_details.this, movie_2.getImdbId(), Toast.LENGTH_SHORT).show();
                 getOmdb(movie_2.getImdbId());
-                if (movie_2.isAdult()){
+                /*if (movie_2.isAdult()){
                     binding.forAdults.setVisibility(View.VISIBLE);
-                }
+                }*/
                 binding.overView.setText(movie_2.getOverview());
                 binding.genres.setText(movie_2.getGenres());
                 netflixUrl=movie_2.getHomepage();
@@ -175,7 +175,6 @@ public class Movie_details extends AppCompatActivity {
                     binding.layoutRottenTomatos.setVisibility(View.VISIBLE);
                     binding.texVoteAverageRotten.setText(movie_omdb.getRottenTomatosRate());
                 }
-
                 binding.actorsProgressBar.setVisibility(View.GONE);
                 if (movie_omdb.getActors()!=null){
                     settingTextView(binding.actors,movie_omdb.getFullActors());
@@ -187,6 +186,7 @@ public class Movie_details extends AppCompatActivity {
                     settingTextView(binding.directors,movie_omdb.getFullDirector());
 
                 }
+                setImageRate(movie_omdb.getRated());
 
             }
         });
@@ -204,5 +204,21 @@ public class Movie_details extends AppCompatActivity {
                 .build();
 
         readMoreOption.addReadMoreTo(textView,text);
+    }
+
+    private void setImageRate(String imageRate){
+        Log.v("main",imageRate);
+        Log.v("main","imageRate");
+        if (imageRate.contains("G")){
+            binding.movieRating.setImageResource(R.drawable.movie_rating_g);
+        }else if (imageRate.contains("PG")){
+            binding.movieRating.setImageResource(R.drawable.movie_rating_pg);
+        }else if (imageRate.contains("PG-13")){
+            binding.movieRating.setImageResource(R.drawable.movie_rating_pg13);
+        }else if (imageRate.contains("R")){
+            binding.movieRating.setImageResource(R.drawable.movie_rating_r);
+        }else if (imageRate.contains("NC-17")){
+            binding.movieRating.setImageResource(R.drawable.movie_rating_unrelated);
+        }
     }
 }

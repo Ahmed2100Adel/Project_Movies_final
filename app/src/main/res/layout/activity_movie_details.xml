@@ -101,26 +101,15 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:src="@drawable/icon_imdb" />
+                                android:src="@drawable/icon_imdb"
+                                style="@style/ImageViewRate"
+                                />
 
                             <TextView
                                 android:id="@+id/tex_vote_average"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_weight="1"
-                                android:gravity="start"
-                                android:shadowDx="0.0"
-                                android:shadowDy="0.0"
-                                android:shadowRadius="8"
                                 android:text=" 7.7"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="#FFEB3B" />
+                                style="@style/TextViewRate"
+                                 />
                         </LinearLayout>
 
                         <LinearLayout
@@ -132,43 +121,26 @@
                             android:visibility="gone">
 
                             <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginBottom="16dp"
+                                style="@style/ImageViewRate"
                                 android:src="@drawable/rottentomatoes_logo_40" />
 
                             <TextView
                                 android:id="@+id/tex_vote_average_rotten"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:layout_weight="1"
-                                android:gravity="start"
-                                android:shadowDx="0.0"
-                                android:shadowDy="0.0"
-                                android:shadowRadius="8"
-                                android:text=" 7.7"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="#FFEB3B" />
+                                android:text=" 94"
+                                style="@style/TextViewRate" />
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/forAdults"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="16dp"
                         android:gravity="center"
-                        android:shadowDx="0.0"
-                        android:shadowDy="0.0"
-                        android:shadowRadius="8"
-                        android:text=" * For adults *"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/colorPrimary" />
+                        android:id="@+id/movieRating"
+                        />
 
                 </LinearLayout>
 
@@ -185,14 +157,12 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/actorsTextView"
                     android:id="@+id/text_releaseDate"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
                     android:text="22-7-2020"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    />
             </LinearLayout>
 
             <ImageView
@@ -219,6 +189,36 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <ProgressBar
+                        android:id="@+id/actorsProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                    <LinearLayout
+                        android:id="@+id/actorsParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:id="@+id/directors"
+                            style="@style/actorsTextView"
+                            android:layout_marginTop="4dp" />
+                        <TextView
+                            android:id="@+id/actors"
+                            style="@style/actorsTextView"
+                            android:layout_marginTop="8dp" />
+
+
+                        <TextView
+                            android:id="@+id/writes"
+                            style="@style/actorsTextView"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="8dp" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/overView"
                         android:layout_width="match_parent"
@@ -229,36 +229,8 @@
                         android:textSize="20sp" />
 
 
-                    <ProgressBar
-                        android:id="@+id/actorsProgressBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-
-                    <LinearLayout
-                        android:id="@+id/actorsParent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:orientation="vertical">
 
 
-                            <TextView
-                                android:id="@+id/actors"
-                                style="@style/actorsTextView"
-                                android:layout_marginTop="8dp" />
-
-                        <TextView
-                            android:id="@+id/directors"
-                            style="@style/actorsTextView"
-                            android:layout_marginTop="4dp" />
-
-                        <TextView
-                            android:id="@+id/writes"
-                            style="@style/actorsTextView"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="8dp" />
-                    </LinearLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
 
