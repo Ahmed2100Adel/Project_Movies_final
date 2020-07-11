@@ -99,6 +99,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {
+                        Log.v("main","1");
                         adapter.submitList(movie_1s);
                     }
                 });

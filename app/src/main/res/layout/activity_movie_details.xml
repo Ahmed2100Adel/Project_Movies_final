@@ -152,17 +152,36 @@
                             />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/layout_movieRating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        >
 
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:gravity="center"
+                            android:id="@+id/movieRating"
+                            android:src="@drawable/movie_rating_pg"
+                            android:layout_gravity="start"
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:gravity="center"
-                        android:id="@+id/movieRating"
-                        />
+                            />
+                        <TextView
+                            style="@style/actorsTextView"
+                            android:layout_weight="1"
+                            android:layout_gravity="end"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:layout_marginTop="16dp"
+                            android:id="@+id/runtime"
+                            />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -250,7 +269,46 @@
                         android:padding="16dp"
                         android:textSize="20sp" />
 
+                    <TextView
+                        android:id="@+id/awards"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/gold"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/corner_white"
+                        android:padding="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="8dp"
+                        />
 
+                    <TextView
+                        android:id="@+id/county_lang"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#fff"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/corner_white"
+                        android:padding="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/production_boxOffice"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#fff"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/corner_white"
+                        android:padding="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="60dp"
+
+                        />
 
 
                 </LinearLayout>

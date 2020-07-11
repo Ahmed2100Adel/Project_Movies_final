@@ -104,7 +104,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     }
     public void load(  LoadInitialCallback<Integer, Movie_1> callback,Integer Current_State_section){
                 if (Current_State_section.equals(CURRENT_STATE_TRENDING)){
-                    RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, FIRST_PAGE)
+                    RetrofitClient.clearClient().getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, FIRST_PAGE)
                             .enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -116,7 +116,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                                 }
                             });
                 }else if (Current_State_section.equals(CURRENT_STATE_FOR_KIDS)) {
-                    RetrofitClient.getInstance().getApi().getKidsMovies(constants.THEMOVIEDB.CERTIFICATION_COUNTRY_US,
+                    RetrofitClient.clearClient().getInstance().getApi().getKidsMovies(constants.THEMOVIEDB.CERTIFICATION_COUNTRY_US,
                             constants.THEMOVIEDB.CERTIFICATION_LTE,
                             constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC,
                             constants.THEMOVIEDB.API_KEY,
@@ -136,7 +136,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
     public void load( @NonNull final LoadCallback<Integer, Movie_1> callback,int State_loading,Integer Current_State_section,@NonNull final LoadParams<Integer> params,Integer type) {
 
           if (Current_State_section.equals(CURRENT_STATE_TRENDING)) {
-              RetrofitClient.getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, params.key)
+              RetrofitClient.clearClient().getInstance().getApi().getTrending(constants.THEMOVIEDB.API_KEY, constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC, params.key)
                       .enqueue(new Callback<ResponseBody>() {
                           @Override
                           public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -175,7 +175,7 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                           }
                       });
           } else if (Current_State_section.equals(CURRENT_STATE_FOR_KIDS)) {
-              RetrofitClient.getInstance().getApi().getKidsMovies(constants.THEMOVIEDB.CERTIFICATION_COUNTRY_US,
+              RetrofitClient.clearClient().getInstance().getApi().getKidsMovies(constants.THEMOVIEDB.CERTIFICATION_COUNTRY_US,
                       constants.THEMOVIEDB.CERTIFICATION_LTE,
                       constants.THEMOVIEDB.SORT_BY_POPULARITY_DESC,
                       constants.THEMOVIEDB.API_KEY,

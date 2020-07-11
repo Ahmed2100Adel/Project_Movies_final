@@ -97,6 +97,8 @@ public class Movie_details extends AppCompatActivity {
         viewModel.getMovie2(id).observe(this, new Observer<Movie_2>() {
             @Override
             public void onChanged(Movie_2 movie_2) {
+                Log.v("main","1");
+
                 //Toast.makeText(Movie_details.this, movie_2.getImdbId(), Toast.LENGTH_SHORT).show();
                 getOmdb(movie_2.getImdbId());
                 /*if (movie_2.isAdult()){
@@ -192,6 +194,26 @@ public class Movie_details extends AppCompatActivity {
                     binding.textVotemetaCritic.setText(movie_omdb.getMetacriticRate());
                 }
 
+                if (movie_omdb.getFullCountryAndLang()!=null){
+                    binding.countyLang.setText(movie_omdb.getFullCountryAndLang());
+                }
+
+                if (movie_omdb.getRuntime()!=null){
+                    binding.runtime.setText(movie_omdb.getRuntime());
+                }
+
+                if (movie_omdb.getFullBoxOfficeAndProduction()!=null){
+                    binding.productionBoxOffice.setText(movie_omdb.getFullBoxOfficeAndProduction());
+                }
+                if (movie_omdb.getAwards()!=null){
+                    if (movie_omdb.getAwards().contains("N/A")){
+                        binding.awards.setVisibility(View.GONE);
+                    }else{
+                        binding.awards.setText(movie_omdb.getAwards());
+
+                    }
+                }
+
             }
         });
     }
@@ -224,5 +246,11 @@ public class Movie_details extends AppCompatActivity {
         }else if (imageRate.contains("NC-17")){
             binding.movieRating.setImageResource(R.drawable.movie_rating_unrelated);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        
     }
 }

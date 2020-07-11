@@ -110,4 +110,12 @@ public class Movie_Omdb {
     public String getFullWriter(){
             return "Writers: "+getWriter()+"  ";
     }
+
+    public String getFullCountryAndLang(){
+        return "Country: "+ getCountry()+"\n"+"Language: "+getLanguage();
+    }
+
+    public String getFullBoxOfficeAndProduction(){
+        return "Box office: "+ getBoxOffice()+"\n"+"Production: "+getProduction();
+    }
 }
