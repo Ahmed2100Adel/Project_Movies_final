@@ -187,6 +187,10 @@ public class Movie_details extends AppCompatActivity {
 
                 }
                 setImageRate(movie_omdb.getRated());
+                if (movie_omdb.getMetacriticRate()!=null){
+                    binding.layoutMetaCritic.setVisibility(View.VISIBLE);
+                    binding.textVotemetaCritic.setText(movie_omdb.getMetacriticRate());
+                }
 
             }
         });
