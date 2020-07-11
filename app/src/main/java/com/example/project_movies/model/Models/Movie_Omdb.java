@@ -116,6 +116,15 @@ public class Movie_Omdb {
     }
 
     public String getFullBoxOfficeAndProduction(){
+        if (getBoxOffice().contains("N/A")&&getProduction().contains("N/A")){
+            return null;
+        }else if(getBoxOffice().contains("N/A")&&!getProduction().contains("N/A")){
+            return "Production: "+ getProduction();
+
+        }else if(!getBoxOffice().contains("N/A")&&getProduction().contains("N/A")){
+            return "office: "+getBoxOffice();
+
+        }
         return "Box office: "+ getBoxOffice()+"\n"+"Production: "+getProduction();
     }
 }

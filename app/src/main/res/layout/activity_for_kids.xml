@@ -18,6 +18,7 @@
             android:id="@+id/recycler_view_trending"
             android:background="#000"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="70dp"
             />
 
 

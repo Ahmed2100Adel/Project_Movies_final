@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -204,6 +205,8 @@ public class Movie_details extends AppCompatActivity {
 
                 if (movie_omdb.getFullBoxOfficeAndProduction()!=null){
                     binding.productionBoxOffice.setText(movie_omdb.getFullBoxOfficeAndProduction());
+                }else{
+                    binding.productionBoxOffice.setVisibility(View.GONE);
                 }
                 if (movie_omdb.getAwards()!=null){
                     if (movie_omdb.getAwards().contains("N/A")){
@@ -214,10 +217,20 @@ public class Movie_details extends AppCompatActivity {
                     }
                 }
 
+                if (movie_omdb.getFullBoxOfficeAndProduction()==null&&movie_omdb.getFullCountryAndLang()!=null){
+
+                    setMargins(binding.countyLang,8,8,8,60);
+                }
             }
         });
     }
-
+    public static void setMargins (View v, int l, int t, int r, int b) {
+        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            p.setMargins(l, t, r, b);
+            v.requestLayout();
+        }
+    }
     private void settingTextView(TextView textView,String text){
         ReadMoreOption readMoreOption = new ReadMoreOption.Builder(Movie_details.this)
                 .textLength(1, ReadMoreOption.TYPE_LINE) // OR
@@ -251,6 +264,6 @@ public class Movie_details extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        
+
     }
 }

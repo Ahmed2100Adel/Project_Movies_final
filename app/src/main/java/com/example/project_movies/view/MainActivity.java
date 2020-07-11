@@ -178,11 +178,14 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(root6,slide6);
         binding.moreList.setVisibility(View.VISIBLE);
 
-        Blurry.with(MainActivity.this)
-                .radius(25).
-                sampling(2)
-                .animate()
-                .onto(binding.recyclerViewTrending);
+        if (binding.recyclerViewTrending!=null){
+            Blurry.with(MainActivity.this)
+                    .radius(25).
+                    sampling(2)
+                    .animate()
+                    .onto(binding.recyclerViewTrending);
+        }
+
         Slide slide= new Slide();
         slide.setSlideEdge(Gravity.RIGHT);
         slide.setDuration(700);
