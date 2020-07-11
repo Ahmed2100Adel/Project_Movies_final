@@ -34,4 +34,8 @@ public interface JsonApiHolder {
     @GET("./")
     Call<ResponseBody> getDetailsOmdb(@Query("i") String imdbID,@Query("apikey") String apiKeyOmdb);
 
+
+    @GET("search.json")
+    Call<ResponseBody> getNyTimesAtTitle(@Query("query") String movieName,@Query("api-key") String apiKey);
+
 }

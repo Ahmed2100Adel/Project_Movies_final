@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
+import com.example.project_movies.viewModel.adapter_articles ;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +32,12 @@ import com.example.project_movies.constants.constants;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Models.Movie_2;
 import com.example.project_movies.model.Models.Movie_Omdb;
+import com.example.project_movies.model.Models.article;
 import com.example.project_movies.viewModel.view_model_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
 
+import java.net.URI;
 import java.util.List;
 
 import jp.wasabeef.blurry.Blurry;
@@ -118,7 +122,27 @@ public class Movie_details extends AppCompatActivity {
 
             }
         });
-
+        Log.v("main","15");
+        viewModel.getArticlesAtTile(title).observe(this, new Observer<List<article>>() {
+            @Override
+            public void onChanged(List<article> articles) {
+                Log.v("main","ar");
+                adapter_articles adapter_articles= new adapter_articles(articles);
+                binding.recyclerViewArticles.setHasFixedSize(true);
+                binding.recyclerViewArticles.setLayoutManager(new LinearLayoutManager(Movie_details.this));
+                binding.recyclerViewArticles.setAdapter(adapter_articles);
+                adapter_articles.setOnClick(new adapter_articles.OnClick() {
+                    @Override
+                    public void OnItemClickListener(String url) {
+                        Intent NYtimes = new Intent();
+                        NYtimes.setAction(Intent.ACTION_VIEW);
+                        NYtimes.setData(Uri.parse(url));
+                        NYtimes.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(NYtimes);
+                    }
+                });
+            }
+        });
 
 
         view_model_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_model_favorite.class);
@@ -166,6 +190,8 @@ public class Movie_details extends AppCompatActivity {
                 startActivity(netflix);
             }
         });
+
+
 
     }
 
@@ -221,6 +247,8 @@ public class Movie_details extends AppCompatActivity {
 
                     setMargins(binding.countyLang,8,8,8,60);
                 }
+
+
             }
         });
     }

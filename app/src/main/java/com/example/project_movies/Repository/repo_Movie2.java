@@ -1,21 +1,18 @@
 package com.example.project_movies.Repository;
 
-import android.app.Application;
-import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.project_movies.model.Models.Movie_2;
+import com.example.project_movies.model.Models.article;
 import com.example.project_movies.model.Retrofit.RetrofitClient;
 import com.example.project_movies.constants.constants;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -138,6 +135,7 @@ public class repo_Movie2{
                 });
         return mutableLiveDataOmdb;
     }
+
 
 
 

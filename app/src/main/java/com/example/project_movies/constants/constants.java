@@ -14,6 +14,10 @@ public class constants {
         public static final String API_KEY="f1ab1e93";
     }
 
+    public static class THENYTIME{
+        public static final String API_KEY="ql1z2jEAGyInBsK9ozx8Q9BoTmSdezBP";
+    }
+
     public static class Movie_details{
         public static final String ID="id";
         public static final String TITLE="title";
