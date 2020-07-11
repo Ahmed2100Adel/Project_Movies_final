@@ -11,8 +11,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -20,6 +23,7 @@ import com.example.project_movies.R;
 import com.example.project_movies.constants.constants;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.model.Models.Movie_2;
+import com.example.project_movies.model.Models.Movie_Omdb;
 import com.example.project_movies.viewModel.view_model_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
@@ -36,7 +40,8 @@ public class Movie_details extends AppCompatActivity {
     private ActivityMovieDetailsBinding binding;
     String netflixUrl=null;
     boolean favorite=false;
-
+    private String imdbId=null;
+    view_mode_Movie2 viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +86,13 @@ public class Movie_details extends AppCompatActivity {
 
 
 
-        view_mode_Movie2 viewModel= ViewModelProviders.of(this).get(view_mode_Movie2.class);
+        viewModel= ViewModelProviders.of(this).get(view_mode_Movie2.class);
 
         viewModel.getMovie2(id).observe(this, new Observer<Movie_2>() {
             @Override
             public void onChanged(Movie_2 movie_2) {
+                //Toast.makeText(Movie_details.this, movie_2.getImdbId(), Toast.LENGTH_SHORT).show();
+                getOmdb(movie_2.getImdbId());
                 if (movie_2.isAdult()){
                     binding.forAdults.setVisibility(View.VISIBLE);
                 }
@@ -102,6 +109,8 @@ public class Movie_details extends AppCompatActivity {
 
             }
         });
+
+
 
         view_model_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_model_favorite.class);
         viewModelFavorits.getPagedLiveData().observe(this, new Observer<List<Movie_1>>() {
@@ -149,5 +158,16 @@ public class Movie_details extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getOmdb(String imdbId){
+        Log.v("main",imdbId);
+        viewModel.getMovieOmdb(imdbId).observe(this, new Observer<Movie_Omdb>() {
+            @Override
+            public void onChanged(Movie_Omdb movie_omdb) {
+                Log.v("main","midb");
+
+            }
+        });
     }
 }

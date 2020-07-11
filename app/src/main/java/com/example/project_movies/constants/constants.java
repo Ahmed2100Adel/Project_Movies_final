@@ -10,6 +10,10 @@ public class constants {
         public static final String CERTIFICATION_LTE="G";
     }
 
+    public static class THEOMDB{
+        public static final String API_KEY="f1ab1e93";
+    }
+
     public static class Movie_details{
         public static final String ID="id";
         public static final String TITLE="title";

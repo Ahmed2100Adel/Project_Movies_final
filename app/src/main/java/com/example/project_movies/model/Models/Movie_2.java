@@ -9,14 +9,16 @@ public class Movie_2  {
     private List<String> genres;
     private String homepage;
     private String overview;
+    private String imdb_id;
 
 
 
-    public Movie_2(boolean adult, List<String> genres, String homepage, String overview) {
+    public Movie_2(boolean adult, List<String> genres, String homepage, String overview,String imdb_id) {
         this.adult = adult;
         this.genres = genres;
         this.homepage = homepage;
         this.overview = overview;
+        this.imdb_id= imdb_id;
     }
 
 
@@ -58,5 +60,9 @@ public class Movie_2  {
 
     public String getOverview() {
         return overview;
+    }
+
+    public String getImdbId() {
+        return imdb_id;
     }
 }

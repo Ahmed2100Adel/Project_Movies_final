@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.project_movies.MyItemRecyclerViewAdapter;
 import com.example.project_movies.R;
@@ -94,6 +95,9 @@ public class horizental_recyclerView_for_all extends Fragment {
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
             adapter=new adapter_recycler_view();
 
+
+
+
             if (type.equals(TYPE_TRENDING)){
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_HORIZENTAL);
@@ -124,6 +128,7 @@ public class horizental_recyclerView_for_all extends Fragment {
     }
 
     private void settingAdapterAndClickListener(@Nullable ViewGroup container){
+
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new adapter_recycler_view.OnItemClickListener() {

@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.project_movies.R;
-import com.example.project_movies.constants.constants;
 import com.example.project_movies.databinding.ActivityMainBinding;
-import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
-import com.example.project_movies.view.Fragments.recyclerView_for_all ;
 import com.example.project_movies.view.Fragments.horizental_recyclerView_for_all;
 
 import jp.wasabeef.blurry.Blurry;
@@ -160,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     private void enableRecyclerView(){
 
     }
+
 
 
     private void buileFragment(Integer type){

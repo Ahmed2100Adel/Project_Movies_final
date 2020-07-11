@@ -2,6 +2,8 @@ package com.example.project_movies.model.DataSource;
 
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.example.project_movies.model.Models.Movie_1;
@@ -240,7 +242,6 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                 String title = jsonObject.optString("title");
                 String release_date = jsonObject.optString("release_date");
                 String poster_path = jsonObject.optString("poster_path");
-
                 movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
             }
 

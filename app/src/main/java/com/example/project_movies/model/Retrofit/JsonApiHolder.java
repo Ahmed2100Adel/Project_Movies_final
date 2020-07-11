@@ -30,4 +30,8 @@ public interface JsonApiHolder {
                                      ,@Query("api_key") String api_key
                                      ,@Query("page") int page
     );
+
+    @GET("./")
+    Call<ResponseBody> getDetailsOmdb(@Query("i") String imdbID,@Query("apikey") String apiKeyOmdb);
+
 }
