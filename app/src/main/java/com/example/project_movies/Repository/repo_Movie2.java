@@ -76,7 +76,7 @@ public class repo_Movie2{
     }
 
     public MutableLiveData<Movie_Omdb> getMutableLiveDataOmdb(String imdbId){
-        //Log.v("main",RetrofitClient.clearClient().getInstance(RetrofitClient.getBaseUrlOmdb()).getApi().getDetailsOmdb(imdbId,constants.THEOMDB.API_KEY).request().toString());
+        Log.v("main",RetrofitClient.clearClient().getInstance(RetrofitClient.getBaseUrlOmdb()).getApi().getDetailsOmdb(imdbId,constants.THEOMDB.API_KEY).request().toString());
         RetrofitClient.getInstance(RetrofitClient.getBaseUrlOmdb()).getApi().getDetailsOmdb(imdbId,constants.THEOMDB.API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -110,7 +110,10 @@ public class repo_Movie2{
                                     JSONObject rating=ratings.getJSONObject(i);
                                     String source=rating.optString("Source");
                                     String value=rating.optString("Value");
+                                    Log.d("main", source);
+                                    Log.d("main", value);
                                     if (source.contains("Rotten Tomatoes")){
+
                                         rottenTomatosRate=value;
                                     }
                                     if (source.contains("Metacritic")){

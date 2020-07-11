@@ -97,4 +97,17 @@ public class Movie_Omdb {
     public String getProduction() {
         return Production;
     }
+
+
+    public String getFullActors(){
+            return "Actors: " +getActors()+"  ";
+    }
+
+    public String getFullDirector(){
+            return "Directors: "+getDirector()+"  ";
+    }
+
+    public String getFullWriter(){
+            return "Writers: "+getWriter()+"  ";
+    }
 }

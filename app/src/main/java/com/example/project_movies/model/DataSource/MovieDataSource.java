@@ -227,24 +227,29 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
         String body = null;
         List<Movie_1> movie_1List = new ArrayList<Movie_1>();
         try {
-            body = response.body().string();
+            if (response.body()!=null){
+                body = response.body().string();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            JSONObject root = new JSONObject(body);
-            JSONArray results = root.getJSONArray("results");
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject jsonObject = results.getJSONObject(i);
-                int id = jsonObject.optInt("id");
-                double vote_average = jsonObject.optDouble("vote_average");
-                String title = jsonObject.optString("title");
-                String release_date = jsonObject.optString("release_date");
-                String poster_path = jsonObject.optString("poster_path");
-                movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
-            }
+            if (body!=null) {
 
+
+                JSONObject root = new JSONObject(body);
+                JSONArray results = root.getJSONArray("results");
+                for (int i = 0; i < results.length(); i++) {
+                    JSONObject jsonObject = results.getJSONObject(i);
+                    int id = jsonObject.optInt("id");
+                    double vote_average = jsonObject.optDouble("vote_average");
+                    String title = jsonObject.optString("title");
+                    String release_date = jsonObject.optString("release_date");
+                    String poster_path = jsonObject.optString("poster_path");
+                    movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
+                }
+            }
             /*int id = -1;
             double vote_average =-1;
             String title ="-1";

@@ -4,21 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.devs.readmoreoption.ReadMoreOption;
 import com.example.project_movies.R;
 import com.example.project_movies.constants.constants;
 import com.example.project_movies.model.Models.Movie_1;
@@ -30,6 +35,7 @@ import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
 
 import java.util.List;
 
+import jp.wasabeef.blurry.Blurry;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
@@ -165,9 +171,38 @@ public class Movie_details extends AppCompatActivity {
         viewModel.getMovieOmdb(imdbId).observe(this, new Observer<Movie_Omdb>() {
             @Override
             public void onChanged(Movie_Omdb movie_omdb) {
-                Log.v("main","midb");
+                if (movie_omdb.getRottenTomatosRate()!=null){
+                    binding.layoutRottenTomatos.setVisibility(View.VISIBLE);
+                    binding.texVoteAverageRotten.setText(movie_omdb.getRottenTomatosRate());
+                }
+
+                binding.actorsProgressBar.setVisibility(View.GONE);
+                if (movie_omdb.getActors()!=null){
+                    settingTextView(binding.actors,movie_omdb.getFullActors());
+                }
+                if (movie_omdb.getWriter()!=null){
+                    settingTextView(binding.writes,movie_omdb.getFullWriter());
+                }
+                if (movie_omdb.getDirector()!=null){
+                    settingTextView(binding.directors,movie_omdb.getFullDirector());
+
+                }
 
             }
         });
+    }
+
+    private void settingTextView(TextView textView,String text){
+        ReadMoreOption readMoreOption = new ReadMoreOption.Builder(Movie_details.this)
+                .textLength(1, ReadMoreOption.TYPE_LINE) // OR
+                //.textLength(300, ReadMoreOption.TYPE_CHARACTER)
+                .moreLabel("see more")
+                .lessLabel("see less")
+                .moreLabelColor(ContextCompat.getColor(Movie_details.this,R.color.gold))
+                .lessLabelColor(ContextCompat.getColor(Movie_details.this,R.color.gold))
+                .expandAnimation(true)
+                .build();
+
+        readMoreOption.addReadMoreTo(textView,text);
     }
 }
