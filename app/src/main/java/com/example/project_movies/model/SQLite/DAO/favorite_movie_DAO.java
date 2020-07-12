@@ -34,6 +34,10 @@ public interface favorite_movie_DAO {
     DataSource.Factory<Integer,Movie_1> getFavoriteMoviesPaged();
 
 
+    @Query("SELECT * FROM favorite_movies WHERE iWantToWatch == 1 ORDER BY timeOfInsertion DESC")
+    DataSource.Factory<Integer,Movie_1> getIWantToWatchPaged();
+
+
 
     @Query("DELETE FROM FAVORITE_MOVIES")
     void deleteAllMovies();

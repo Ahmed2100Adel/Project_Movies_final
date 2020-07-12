@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
 import com.example.project_movies.view.Fragments.horizental_recyclerView_for_all;
-
+import com.example.project_movies.view.Fragments.recyclerView_for_all;
 import jp.wasabeef.blurry.Blurry;
 
 
@@ -133,6 +133,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.IWantToWatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToOtherActivity();
+                Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                intent.setAction(String.valueOf(recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH));
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void goToOtherActivity(){
@@ -199,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         slide2.setDuration(700);
         ViewGroup root2=binding.root;
         TransitionManager.beginDelayedTransition(root2,slide2);
-        binding.popular.setVisibility(View.VISIBLE);
+        binding.IWantToWatch.setVisibility(View.VISIBLE);
 
 
         Slide slide3= new Slide();
@@ -214,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         slide4.setDuration(700);
         ViewGroup root4=binding.root;
         TransitionManager.beginDelayedTransition(root4,slide4);
-        binding.highestRate.setVisibility(View.VISIBLE);
+        binding.watched.setVisibility(View.VISIBLE);
 
 
         Slide slide5= new Slide();

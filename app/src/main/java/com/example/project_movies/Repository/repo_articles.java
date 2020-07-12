@@ -36,24 +36,28 @@ public class repo_articles {
 
                         List<article> articles= new ArrayList<>();
                         try {
-                            body=response.body().string();
+                            if (response.body()!=null) {
+                                body = response.body().string();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         try {
+                            if (body!=null) {
+                                JSONObject root = new JSONObject(body);
+                                JSONArray results = root.getJSONArray("results");
+                                for (int i = 0; i < results.length(); i++) {
+                                    JSONObject jsonObject = results.getJSONObject(i);
+                                    String summary_short = jsonObject.optString("summary_short");
+                                    JSONObject link = jsonObject.getJSONObject("link");
+                                    String url = link.optString("url");
+                                    String suggested_link_text = link.optString("suggested_link_text");
+                                    articles.add(new article(url, suggested_link_text, summary_short));
+                                }
 
-                            JSONObject root=new JSONObject(body);
-                            JSONArray results=root.getJSONArray("results");
-                            for (int i=0;i<results.length();i++){
-                                JSONObject jsonObject= results.getJSONObject(i);
-                                String summary_short=jsonObject.optString("summary_short");
-                                JSONObject link=jsonObject.getJSONObject("link");
-                                String url=link.optString("url");
-                                String suggested_link_text=link.optString("suggested_link_text");
-                                articles.add(new article(url,suggested_link_text,summary_short));
+                                mutableLiveDataNytimes.postValue(articles);
                             }
-                            mutableLiveDataNytimes.postValue(articles);
-                        } catch (JSONException e) {
+                            } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }

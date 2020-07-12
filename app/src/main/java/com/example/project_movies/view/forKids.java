@@ -18,6 +18,8 @@ public class forKids extends AppCompatActivity {
         View root=binding.getRoot();
         setContentView(root);
 
+
+
         recyclerView_for_all fragment_for_kids=new recyclerView_for_all();
         //null meaning it came from trending activity
 

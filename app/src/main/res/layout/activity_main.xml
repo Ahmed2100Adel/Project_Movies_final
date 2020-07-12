@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:id="@+id/highestRate"
+                    android:id="@+id/watched"
                     android:visibility="gone"
                     >
 
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:elevation="16dp"
-                        android:text="highest rate"
+                        android:text="Watched"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/white" />
                 </FrameLayout>
@@ -163,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:id="@+id/popular"
+                    android:id="@+id/IWantToWatch"
                     android:visibility="gone"
                     >
 
@@ -178,7 +178,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="popular"
+                        android:text="I want to \n watch"
+                        android:gravity="center"
                         android:elevation="16dp"
                         android:textColor="@android:color/white"
                         android:textAppearance="?android:attr/textAppearanceMedium" />

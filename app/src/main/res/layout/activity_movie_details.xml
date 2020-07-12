@@ -81,6 +81,7 @@
             android:layout_margin="3dp"
             android:id="@+id/text_watched"
             android:visibility="gone"
+            android:textColor="#fff"
 
             />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -111,6 +112,7 @@
             android:layout_margin="3dp"
             android:id="@+id/text_IWantTowatched"
             android:visibility="gone"
+            android:textColor="#fff"
             />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

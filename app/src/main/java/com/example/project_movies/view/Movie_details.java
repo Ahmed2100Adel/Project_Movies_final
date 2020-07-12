@@ -163,7 +163,7 @@ public class Movie_details extends AppCompatActivity {
 
 
         view_model_favorite viewModelFavorits=ViewModelProviders.of(this).get(view_model_favorite.class);
-        viewModelFavorits.getPagedLiveData().observe(this, new Observer<List<Movie_1>>() {
+        viewModelFavorits.getFavoritePagedLiveData().observe(this, new Observer<List<Movie_1>>() {
             @Override
             public void onChanged(List<Movie_1> favorite_movies) {
 

@@ -23,28 +23,38 @@ public class view_model_favorite extends AndroidViewModel {
     public LiveData<PagedList<Movie_1>> allMoviesPaged;
     public LiveData<List<Movie_1>> moviesAtId;
 
+    public static  Integer CURRENT_STATE_I_WANT_TO_WATCH=4;
+    public static  Integer CURRENT_STATE=null;
+    private Application application;
+
     public view_model_favorite(@NonNull Application application) {
         super(application);
         repository= new repo_favoriteMovie(application);
         //allFavoriteMovies=repository.allMovies;
+        this.application=application;
 
-        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getFavoriteMoviesPaged();
-        LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
-        allMoviesPaged=livePagedListBuilder.build();
 
 
     }
 
     public LiveData<List<Movie_1>> getMoviesAtId(int id){
-
         return moviesAtId=repository.getMovieAtId(id);
     }
 
 
-    public LiveData<PagedList<Movie_1>> getPagedLiveData(){
+    public LiveData<PagedList<Movie_1>> getFavoritePagedLiveData(){
+        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getFavoriteMoviesPaged();
+        LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
+        allMoviesPaged=livePagedListBuilder.build();
         return allMoviesPaged;
     }
 
+    public LiveData<PagedList<Movie_1>> getIWantToWatchPagedLiveData(){
+        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getIWantToWatchPaged();
+        LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
+        allMoviesPaged=livePagedListBuilder.build();
+        return allMoviesPaged;
+    }
 
     public void deleteAtId(int id){
         repository.deleteAtId(id);

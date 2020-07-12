@@ -35,6 +35,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     public static  Integer CURRENT_STATE_FAVORITES=1;
     public static  Integer CURRENT_STATE_FOR_KIDS=2;
     public static  Integer CURRENT_STATE_TRENDING=3;
+    public static  Integer CURRENT_STATE_I_WANT_TO_WATCH=4;
     public static  Integer CURRENT_STATE=null;
     public static final Integer TYPE_HORIZENTAL=100;
     public static final Integer TYPE_VERTICAL=101;
@@ -75,7 +76,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 });
                 thread1.start();
                 view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
-                ViewModel.getPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                ViewModel.getFavoritePagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> favorite_movies) {
                         adapter.submitList(favorite_movies);
@@ -84,6 +85,22 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 });
 
 
+            }else  if (CURRENT_STATE==CURRENT_STATE_I_WANT_TO_WATCH){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        settingAdapterAndClickListener(container);
+                    }
+                });
+                thread1.start();
+                view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
+                ViewModel.getIWantToWatchPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> favorite_movies) {
+                        adapter.submitList(favorite_movies);
+
+                    }
+                });
             }
             else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
                 Thread thread1= new Thread(new Runnable() {
