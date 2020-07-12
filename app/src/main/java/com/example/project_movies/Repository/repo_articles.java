@@ -27,14 +27,12 @@ public class repo_articles {
 
 
     public LiveData<List<article>> getArticlesAtName(String title){
-        Log.v("main","2");
 
         RetrofitClient.clearClient().getInstance(RetrofitClient.getBaseUrlNytimes()).getApi().getNyTimesAtTitle(title, constants.THENYTIME.API_KEY)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         String body=null;
-                        Log.v("main","ar3");
 
                         List<article> articles= new ArrayList<>();
                         try {
@@ -43,7 +41,6 @@ public class repo_articles {
                             e.printStackTrace();
                         }
                         try {
-                            Log.v("main","ar4");
 
                             JSONObject root=new JSONObject(body);
                             JSONArray results=root.getJSONArray("results");
@@ -55,7 +52,6 @@ public class repo_articles {
                                 String suggested_link_text=link.optString("suggested_link_text");
                                 articles.add(new article(url,suggested_link_text,summary_short));
                             }
-                            Log.v("main","arsize"+articles.size());
                             mutableLiveDataNytimes.postValue(articles);
                         } catch (JSONException e) {
                             e.printStackTrace();

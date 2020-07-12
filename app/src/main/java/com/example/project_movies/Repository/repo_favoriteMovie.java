@@ -28,9 +28,18 @@ public class repo_favoriteMovie {
         return DAO.getMovieFavoriteAtId(id);
     }
 
+    public LiveData<List<Movie_1>> getMovieAtId(int id){
+        return DAO.getMovieAtId(id);
+    }
+
     public void insert (Movie_1 movie){
 
         new InsertFavoriteMovieAsync(DAO).execute(movie);
+    }
+
+    public void update (Movie_1 movie){
+
+        new UpdateMovieAsync(DAO).execute(movie);
     }
 
     public void delete(Movie_1 movie){
@@ -59,6 +68,20 @@ public class repo_favoriteMovie {
         @Override
         protected Void doInBackground(Movie_1... favorite_movies) {
             DAO.insertFavoriteMovie(favorite_movies[0]);
+            return null;
+        }
+    }
+
+    public static class UpdateMovieAsync extends AsyncTask<Movie_1,Void,Void>{
+    private favorite_movie_DAO DAO;
+
+        public UpdateMovieAsync(favorite_movie_DAO DAO) {
+            this.DAO = DAO;
+        }
+
+        @Override
+        protected Void doInBackground(Movie_1... favorite_movies) {
+            DAO.updateMovie(favorite_movies[0]);
             return null;
         }
     }
@@ -120,6 +143,8 @@ public class repo_favoriteMovie {
 
         }
     }
+
+
 
 
 }

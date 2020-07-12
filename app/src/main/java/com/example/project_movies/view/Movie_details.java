@@ -43,6 +43,7 @@ import com.example.project_movies.model.Models.article;
 import com.example.project_movies.viewModel.view_model_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
+import com.google.android.gms.common.internal.ISignInButtonCreator;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -59,6 +60,12 @@ public class Movie_details extends AppCompatActivity {
     private String imdbId=null;
     view_mode_Movie2 viewModel;
     boolean horiMoreIsShown=false;
+    Boolean isIWantToWatch =false;
+    Boolean isWatched=false;
+    Boolean isFavorite=false;
+    Boolean isExisted=false;
+    int idDB=-1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +115,6 @@ public class Movie_details extends AppCompatActivity {
         viewModel.getMovie2(id).observe(this, new Observer<Movie_2>() {
             @Override
             public void onChanged(Movie_2 movie_2) {
-                Log.v("main","1");
 
                 //Toast.makeText(Movie_details.this, movie_2.getImdbId(), Toast.LENGTH_SHORT).show();
                 getOmdb(movie_2.getImdbId());
@@ -128,7 +134,6 @@ public class Movie_details extends AppCompatActivity {
 
             }
         });
-        Log.v("main","15");
         viewModel.getArticlesAtTile(title).observe(this, new Observer<List<article>>() {
             @Override
             public void onChanged(List<article> articles) {
@@ -168,27 +173,100 @@ public class Movie_details extends AppCompatActivity {
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (favorite){
-                    viewModelFavorits.deleteAtId(Integer.valueOf(id));
-                }else{
-                    Long tsLong = System.currentTimeMillis()/1000;
-                    Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,true,false,false);
-                    viewModelFavorits.insert(movie);
+                if (isExisted){
+                    Log.v("main","21");
+                    if (isFavorite){
+                        Log.v("main","20");
+
+                        if (!isWatched&&!isIWantToWatch&&isFavorite){
+                            viewModelFavorits.deleteAtId(Integer.valueOf(id));
+                            isFavorite=false;
+                            isExisted=false;
+                            Log.v("main","23");
+
+                        }else{
+                            Long tsLong = System.currentTimeMillis()/1000;
+                            Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,false,isIWantToWatch,isWatched);
+                            movie1.setIdFav(idDB);
+                            viewModelFavorits.update(movie1);
+                            isFavorite=false;
+                            Log.v("main","24");
+
+                        }
+                    }else{
+                        Long tsLong = System.currentTimeMillis()/1000;
+                        Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,true,isIWantToWatch,isWatched);
+                        movie1.setIdFav(idDB);
+                        viewModelFavorits.update(movie1);
+                        isFavorite=true;
+                        Log.v("main","25");
+
+                    }
                 }
+                else{
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,true,isIWantToWatch,isFavorite);
+                    viewModelFavorits.insert(movie1);
+                    isFavorite=true;
+                    isExisted=true;
+                    Log.v("main","26");
+
+                }
+
 
             }
         });
         view_model_favorite ViewModelFav= ViewModelProviders.of(this).get(view_model_favorite.class);
-        ViewModelFav.getFavoriteMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
+        ViewModelFav.getMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
             @Override
             public void onChanged(List<Movie_1> movie_1s) {
                 if (movie_1s.size()>0){
+                    isExisted=true;
 
-                    binding.favorite.setImageResource(R.drawable.icon_favorite_on);
-                    favorite=true;
+                    idDB=movie_1s.get(0).getIdFav();
+
+                    Movie_1 movie1=movie_1s.get(0);
+                    if (movie1.getIWantToWatch()){
+                        Log.v("main","11");
+                        isIWantToWatch=true;
+                        binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list_done);
+                    }else{
+                        Log.v("main","2");
+
+                        binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list);
+
+                    }
+
+
+                    if (movie1.getWatched()){
+                        Log.v("main","3");
+
+                        isWatched=true;
+                        binding.addToWatched.setImageResource(R.drawable.ic_action_watched_done);
+                    }else{
+                        Log.v("main","4");
+
+                        binding.addToWatched.setImageResource(R.drawable.ic_action_done);
+
+                    }
+
+                    if (movie1.getFavorite()){
+                        Log.v("main","5");
+
+                        isFavorite=true;
+                        binding.favorite.setImageResource(R.drawable.icon_favorite_on);
+                    }else{
+                        Log.v("main","6");
+
+                        binding.favorite.setImageResource(R.drawable.icon_favorite_not);
+
+                    }
                 }else{
+                    Log.v("main","7");
                     binding.favorite.setImageResource(R.drawable.icon_favorite_not);
-                    favorite=false;
+                    binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list);
+                    binding.addToWatched.setImageResource(R.drawable.ic_action_done);
+
                 }
             }
         });
@@ -208,6 +286,19 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!horiMoreIsShown){
+                    if (isIWantToWatch){
+                        binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list_done);
+                    }else{
+                        binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list);
+
+                    }
+
+                    if (isWatched){
+                        binding.addToWatched.setImageResource(R.drawable.ic_action_watched_done);
+                    }else{
+                        binding.addToWatched.setImageResource(R.drawable.ic_action_done);
+
+                    }
                     Slide slide= new Slide();
                     slide.setSlideEdge(Gravity.LEFT);
                     slide.setDuration(700);
@@ -253,8 +344,6 @@ public class Movie_details extends AppCompatActivity {
                     TransitionManager.beginDelayedTransition(root2,slide2);
                     binding.addToWatched.setVisibility(View.GONE);
 
-                    binding.addToIWantToWatch.setVisibility(View.GONE);
-                    binding.addToWatched.setVisibility(View.GONE);
                     binding.textIWantTowatched.setVisibility(View.GONE);
                     binding.textWatched.setVisibility(View.GONE);
 
@@ -271,10 +360,151 @@ public class Movie_details extends AppCompatActivity {
             }
         });
 
+
+        binding.addToIWantToWatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isExisted){
+                    Log.v("main","21");
+                    if (isIWantToWatch){
+                        Log.v("main","20");
+
+                        if (!isWatched&&isIWantToWatch&&!isFavorite){
+                            viewModelFavorits.deleteAtId(Integer.valueOf(id));
+                            isIWantToWatch=false;
+                            isExisted=false;
+                            Log.v("main","23");
+
+                        }else{
+                            Long tsLong = System.currentTimeMillis()/1000;
+                            Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,false,isWatched);
+                            movie1.setIdFav(idDB);
+                            viewModelFavorits.update(movie1);
+                            isIWantToWatch=false;
+                            Log.v("main","24");
+
+                        }
+                    }else{
+                        Long tsLong = System.currentTimeMillis()/1000;
+                        Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,true,isWatched);
+                        movie1.setIdFav(idDB);
+                        viewModelFavorits.update(movie1);
+                        isIWantToWatch=true;
+                        Log.v("main","25");
+
+                    }
+                }
+                else{
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,true,isWatched);
+                    viewModelFavorits.insert(movie1);
+                    isIWantToWatch=true;
+                    isExisted=true;
+                    Log.v("main","26");
+
+                }
+
+
+            }
+        });
+
+
+        binding.addToWatched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isExisted){
+                    Log.v("main","21");
+                    if (isWatched){
+                        Log.v("main","20");
+
+                        if (isWatched&&!isIWantToWatch&&!isFavorite){
+                            viewModelFavorits.deleteAtId(Integer.valueOf(id));
+                            isWatched=false;
+                            isExisted=false;
+                            Log.v("main","23");
+
+                        }else{
+                            Long tsLong = System.currentTimeMillis()/1000;
+                            Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,false);
+                            movie1.setIdFav(idDB);
+                            viewModelFavorits.update(movie1);
+                            isWatched=false;
+                            Log.v("main","24");
+
+                        }
+                    }else{
+                        Long tsLong = System.currentTimeMillis()/1000;
+                        Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,true);
+                        movie1.setIdFav(idDB);
+                        viewModelFavorits.update(movie1);
+                        isWatched=true;
+                        Log.v("main","25");
+
+                    }
+                }
+                else{
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,true);
+                    viewModelFavorits.insert(movie1);
+                    isWatched=true;
+                    isExisted=true;
+                    Log.v("main","26");
+
+                }
+
+
+            }
+
+        });
+    }
+
+    public void addToDB( view_model_favorite viewModelFavorits,Boolean isExisted,Boolean isWatched,Boolean isIWantToWatch,Boolean isFavorite,String id,String vote_average,String title,
+                        String release_date,String poster_url
+    ){
+        if (isExisted){
+            Log.v("main","21");
+            if (isWatched){
+                Log.v("main","20");
+
+                if (isWatched&&!isIWantToWatch&&!isFavorite){
+                    viewModelFavorits.deleteAtId(Integer.valueOf(id));
+                    isWatched=false;
+                    isExisted=false;
+                    Log.v("main","23");
+
+                }else{
+                    Long tsLong = System.currentTimeMillis()/1000;
+                    Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,false);
+                    movie1.setIdFav(idDB);
+                    viewModelFavorits.update(movie1);
+                    isWatched=false;
+                    Log.v("main","24");
+
+                }
+            }else{
+                Long tsLong = System.currentTimeMillis()/1000;
+                Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,true);
+                movie1.setIdFav(idDB);
+                viewModelFavorits.update(movie1);
+                isWatched=true;
+                Log.v("main","25");
+
+            }
+        }
+        else{
+            Long tsLong = System.currentTimeMillis()/1000;
+            Movie_1 movie1= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,isFavorite,isIWantToWatch,true);
+            viewModelFavorits.insert(movie1);
+            isWatched=true;
+            isExisted=true;
+            Log.v("main","26");
+
+        }
+
+
     }
 
     private void getOmdb(String imdbId){
-        Log.v("main",imdbId);
         viewModel.getMovieOmdb(imdbId).observe(this, new Observer<Movie_Omdb>() {
             @Override
             public void onChanged(Movie_Omdb movie_omdb) {
@@ -358,8 +588,6 @@ public class Movie_details extends AppCompatActivity {
     }
 
     private void setImageRate(String imageRate){
-        Log.v("main",imageRate);
-        Log.v("main","imageRate");
         if (imageRate.contains("G")){
             binding.movieRating.setImageResource(R.drawable.movie_rating_g);
         }else if (imageRate.contains("PG")){

@@ -35,7 +35,6 @@ public class view_mode_Movie2  extends ViewModel {
     }
 
     public LiveData<List<article>> getArticlesAtTile(String title){
-        Log.v("main","1");
 
         return viewModelArticles.getArticlesAtName(title);
     }

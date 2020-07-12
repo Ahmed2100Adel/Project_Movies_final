@@ -35,9 +35,9 @@ public class view_model_favorite extends AndroidViewModel {
 
     }
 
-    public LiveData<List<Movie_1>> getFavoriteMoviesAtId(int id){
+    public LiveData<List<Movie_1>> getMoviesAtId(int id){
 
-        return moviesAtId=repository.getFavoriteMoviesAtId(id);
+        return moviesAtId=repository.getMovieAtId(id);
     }
 
 
@@ -51,6 +51,7 @@ public class view_model_favorite extends AndroidViewModel {
     }
 
     public void insert(Movie_1 movie){
+
         repository.insert(movie);
     }
 
@@ -60,5 +61,9 @@ public class view_model_favorite extends AndroidViewModel {
 
     public void deleteAll(){
         repository.deleteAll();
+    }
+
+    public void update(Movie_1 movie){
+        repository.update(movie);
     }
 }
