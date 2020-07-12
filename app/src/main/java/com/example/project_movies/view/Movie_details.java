@@ -126,7 +126,9 @@ public class Movie_details extends AppCompatActivity {
         viewModel.getArticlesAtTile(title).observe(this, new Observer<List<article>>() {
             @Override
             public void onChanged(List<article> articles) {
-                Log.v("main","ar");
+                if (!articles.isEmpty()){
+                    binding.textSuggestedArtices.setVisibility(View.VISIBLE);
+                }
                 adapter_articles adapter_articles= new adapter_articles(articles);
                 binding.recyclerViewArticles.setHasFixedSize(true);
                 binding.recyclerViewArticles.setLayoutManager(new LinearLayoutManager(Movie_details.this));
