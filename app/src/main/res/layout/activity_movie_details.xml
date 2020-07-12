@@ -51,7 +51,90 @@
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|right|end" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/horizontalMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/ic_action_more_horizental"
+        android:tint="@android:color/white"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|left|start"
 
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginStart="120dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|left|start"
+        android:orientation="vertical"
+        android:id="@+id/parentWatched"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Watched"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_margin="3dp"
+            android:id="@+id/text_watched"
+            android:visibility="gone"
+
+            />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addToIWantToWatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_add"
+        android:tint="@android:color/white"
+        android:visibility="gone"
+
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginStart="208dp"
+        app:layout_anchor="@id/app_bar_layout"
+        app:layout_anchorGravity="bottom|left|start"
+        android:orientation="vertical"
+        android:id="@+id/parentIWantToWatch"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" I want To watch"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_margin="3dp"
+            android:id="@+id/text_IWantTowatched"
+            android:visibility="gone"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addToWatched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_done"
+            android:tint="@android:color/white"
+            app:layout_anchor="@id/app_bar_layout"
+            app:layout_anchorGravity="bottom|left|start"
+            android:visibility="gone"
+
+
+            />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
 
 
             <LinearLayout
@@ -225,6 +309,9 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/netflix">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -277,9 +364,9 @@
                         android:layout_width="match_parent"
                         android:background="@drawable/corner_white"
                         android:padding="16dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="32dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="4dp"
                         />
 
                     <TextView
@@ -290,9 +377,9 @@
                         android:layout_width="match_parent"
                         android:background="@drawable/corner_white"
                         android:padding="16dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="4dp"
                         />
 
                     <TextView
@@ -303,9 +390,9 @@
                         android:layout_width="match_parent"
                         android:background="@drawable/corner_white"
                         android:padding="16dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="4dp"
                         android:layout_marginBottom="60dp"
 
                         />
@@ -315,8 +402,8 @@
                         android:layout_height="wrap_content"
                         android:text="Suggested Articles"
                         android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:id="@+id/text_suggested_artices"
                         android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -327,13 +414,19 @@
                         android:layout_height="wrap_content"
                         tools:listitem="@layout/item_article"
                         android:id="@+id/recyclerViewArticles"
-                        android:layout_margin="16dp"
+                        android:layout_margin="4dp"
                         android:layout_marginBottom="70dp"
                         />
                 </LinearLayout>
 
+                </RelativeLayout>
 
             </androidx.core.widget.NestedScrollView>
+
+
+
+
+
 
 
         </RelativeLayout>

@@ -27,6 +27,11 @@ public class Movie_1 {
 
     private long timeOfInsertion=0;
 
+    private boolean favorite=false;
+    private boolean iWantToWatch=false;
+    private boolean watched=false;
+
+
 
     @Ignore
     public Movie_1(int id, double vote_average, String title, String release_date, String poster_path) {
@@ -37,6 +42,7 @@ public class Movie_1 {
         this.poster_path = poster_path;
     }
 
+    @Ignore
     public Movie_1( int id,double vote_average, String title, String release_date, String poster_path, long timeOfInsertion) {
         this.id=id;
         this.vote_average = vote_average;
@@ -44,6 +50,20 @@ public class Movie_1 {
         this.release_date = release_date;
         this.poster_path = poster_path;
         this.timeOfInsertion = timeOfInsertion;
+    }
+
+
+    public Movie_1(int id, double vote_average, String title, String release_date, String poster_path,
+                   long timeOfInsertion, boolean favorite, boolean iWantToWatch, boolean watched) {
+        this.id = id;
+        this.vote_average = vote_average;
+        this.title = title;
+        this.release_date = release_date;
+        this.poster_path = poster_path;
+        this.timeOfInsertion = timeOfInsertion;
+        this.favorite = favorite;
+        this.iWantToWatch = iWantToWatch;
+        this.watched = watched;
     }
 
     public void setIdFav(int idFav) {
@@ -87,6 +107,18 @@ public class Movie_1 {
         }
         String url="https://image.tmdb.org/t/p/w185/"+poster_path+"?api_key="+constants.THEMOVIEDB.API_KEY;
         return url;
+    }
+
+    public boolean getFavorite() {
+        return favorite;
+    }
+
+    public boolean getIWantToWatch() {
+        return iWantToWatch;
+    }
+
+    public boolean getWatched() {
+        return watched;
     }
 
     @Override

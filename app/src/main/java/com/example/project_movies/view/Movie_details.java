@@ -4,25 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import com.example.project_movies.viewModel.adapter_articles ;
+
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -36,11 +43,9 @@ import com.example.project_movies.model.Models.article;
 import com.example.project_movies.viewModel.view_model_favorite;
 import com.example.project_movies.viewModel.view_mode_Movie2 ;
 import com.example.project_movies.databinding.ActivityMovieDetailsBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.net.URI;
 import java.util.List;
-
-import jp.wasabeef.blurry.Blurry;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
@@ -53,6 +58,7 @@ public class Movie_details extends AppCompatActivity {
     boolean favorite=false;
     private String imdbId=null;
     view_mode_Movie2 viewModel;
+    boolean horiMoreIsShown=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,8 +137,12 @@ public class Movie_details extends AppCompatActivity {
                 }
                 adapter_articles adapter_articles= new adapter_articles(articles);
                 binding.recyclerViewArticles.setHasFixedSize(true);
-                binding.recyclerViewArticles.setLayoutManager(new LinearLayoutManager(Movie_details.this));
+                LinearLayoutManager linearLayoutManager= new LinearLayoutManager(Movie_details.this);
+                binding.recyclerViewArticles.setLayoutManager(linearLayoutManager);
                 binding.recyclerViewArticles.setAdapter(adapter_articles);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(binding.recyclerViewArticles.getContext(),
+                        linearLayoutManager.getOrientation());
+                binding.recyclerViewArticles.addItemDecoration(dividerItemDecoration);
                 adapter_articles.setOnClick(new adapter_articles.OnClick() {
                     @Override
                     public void OnItemClickListener(String url) {
@@ -162,14 +172,14 @@ public class Movie_details extends AppCompatActivity {
                     viewModelFavorits.deleteAtId(Integer.valueOf(id));
                 }else{
                     Long tsLong = System.currentTimeMillis()/1000;
-                    Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong);
+                    Movie_1 movie= new Movie_1(Integer.valueOf(id),Double.valueOf(vote_average),title,release_date,poster_url,tsLong,true,false,false);
                     viewModelFavorits.insert(movie);
                 }
 
             }
         });
         view_model_favorite ViewModelFav= ViewModelProviders.of(this).get(view_model_favorite.class);
-        ViewModelFav.getMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
+        ViewModelFav.getFavoriteMoviesAtId(Integer.valueOf(id)).observe(this, new Observer<List<Movie_1>>() {
             @Override
             public void onChanged(List<Movie_1> movie_1s) {
                 if (movie_1s.size()>0){
@@ -194,6 +204,72 @@ public class Movie_details extends AppCompatActivity {
         });
 
 
+        binding.horizontalMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!horiMoreIsShown){
+                    Slide slide= new Slide();
+                    slide.setSlideEdge(Gravity.LEFT);
+                    slide.setDuration(700);
+                    ViewGroup root=binding.parentIWantToWatch;
+                    TransitionManager.beginDelayedTransition(root,slide);
+                    binding.addToIWantToWatch.setVisibility(View.VISIBLE);
+
+                    Slide slide2= new Slide();
+                    slide2.setSlideEdge(Gravity.LEFT);
+                    slide2.setDuration(700);
+                    ViewGroup root2=binding.parentWatched;
+                    TransitionManager.beginDelayedTransition(root2,slide2);
+                    binding.addToWatched.setVisibility(View.VISIBLE);
+
+
+                    binding.textIWantTowatched.setVisibility(View.VISIBLE);
+                    binding.textWatched.setVisibility(View.VISIBLE);
+
+
+
+
+                    Animation animation = new AlphaAnimation(1, 1); // Change alpha from fully visible to invisible
+                    animation.setDuration(500); // duration - half a second
+                    animation.setInterpolator(new LinearInterpolator());
+                    //Use this animation where ever you want to use
+                    binding.horizontalMore.startAnimation(animation);
+                    binding.horizontalMore.setImageResource(R.drawable.faboptions_ic_close);
+
+                    horiMoreIsShown=true;
+                }else{
+
+                    Slide slide= new Slide();
+                    slide.setSlideEdge(Gravity.RIGHT);
+                    slide.setDuration(700);
+                    ViewGroup root=binding.parentIWantToWatch;
+                    TransitionManager.beginDelayedTransition(root,slide);
+                    binding.addToIWantToWatch.setVisibility(View.GONE);
+
+                    Slide slide2= new Slide();
+                    slide2.setSlideEdge(Gravity.RIGHT);
+                    slide2.setDuration(700);
+                    ViewGroup root2=binding.parentWatched;
+                    TransitionManager.beginDelayedTransition(root2,slide2);
+                    binding.addToWatched.setVisibility(View.GONE);
+
+                    binding.addToIWantToWatch.setVisibility(View.GONE);
+                    binding.addToWatched.setVisibility(View.GONE);
+                    binding.textIWantTowatched.setVisibility(View.GONE);
+                    binding.textWatched.setVisibility(View.GONE);
+
+                    Animation animation = new AlphaAnimation(1, 1); // Change alpha from fully visible to invisible
+                    animation.setDuration(500); // duration - half a second
+                    animation.setInterpolator(new LinearInterpolator());
+                    //Use this animation where ever you want to use
+                    binding.horizontalMore.startAnimation(animation);
+                    binding.horizontalMore.setImageResource(R.drawable.ic_action_more_horizental);
+
+                    horiMoreIsShown=false;
+
+                }
+            }
+        });
 
     }
 
@@ -253,7 +329,13 @@ public class Movie_details extends AppCompatActivity {
 
             }
         });
+        //binding.speedDial.inflate(R.menu.menu);
+
+
+
     }
+
+
     public static void setMargins (View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();

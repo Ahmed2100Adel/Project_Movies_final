@@ -65,6 +65,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.github.devendroid:ReadMoreOption:1.0.2'
+    compile 'com.github.joaquimley:faboptions:1.2.0'
 
 
 }

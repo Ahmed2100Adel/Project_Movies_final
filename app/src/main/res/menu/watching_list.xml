@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addToIWantToWatch"
+        android:icon="@drawable/ic_action_add"
+        android:title="I want to watch"/>
+
+    <item
+        android:id="@+id/watched"
+        android:icon="@drawable/ic_action_done"
+        android:title="watched"/>
+</menu>

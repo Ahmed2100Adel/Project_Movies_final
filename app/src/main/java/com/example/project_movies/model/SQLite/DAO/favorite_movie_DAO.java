@@ -26,6 +26,9 @@ public interface favorite_movie_DAO {
     @Query("SELECT * FROM favorite_movies ORDER BY timeOfInsertion DESC")
     DataSource.Factory<Integer,Movie_1> getMoviesPaged();
 
+    @Query("SELECT * FROM favorite_movies WHERE favorite == 1 ORDER BY timeOfInsertion DESC")
+    DataSource.Factory<Integer,Movie_1> getFavoriteMoviesPaged();
+
 
 
     @Query("DELETE FROM FAVORITE_MOVIES")
@@ -33,5 +36,14 @@ public interface favorite_movie_DAO {
 
     @Query("SELECT * FROM favorite_movies WHERE id = :id")
     LiveData<List<Movie_1>> getMovieAtId(int id);
+
+    @Query("SELECT * FROM favorite_movies WHERE id = :id AND favorite=1")
+    LiveData<List<Movie_1>> getMovieFavoriteAtId(int id);
+
+    @Query("SELECT * FROM favorite_movies WHERE id = :id AND iWantToWatch=1")
+    LiveData<List<Movie_1>> getIwantToWatchAtId(int id);
+
+    @Query("SELECT * FROM favorite_movies WHERE id = :id AND watched=1")
+    LiveData<List<Movie_1>> getWatchedAtId(int id);
 
 }

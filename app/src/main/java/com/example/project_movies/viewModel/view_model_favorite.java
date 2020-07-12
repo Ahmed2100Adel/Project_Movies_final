@@ -28,16 +28,16 @@ public class view_model_favorite extends AndroidViewModel {
         repository= new repo_favoriteMovie(application);
         //allFavoriteMovies=repository.allMovies;
 
-        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getMoviesPaged();
+        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getFavoriteMoviesPaged();
         LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
         allMoviesPaged=livePagedListBuilder.build();
 
 
     }
 
-    public LiveData<List<Movie_1>> getMoviesAtId(int id){
+    public LiveData<List<Movie_1>> getFavoriteMoviesAtId(int id){
 
-        return moviesAtId=repository.getMoviesAtId(id);
+        return moviesAtId=repository.getFavoriteMoviesAtId(id);
     }
 
 

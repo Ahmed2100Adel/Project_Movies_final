@@ -99,7 +99,6 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {
-                        Log.v("main","1");
                         adapter.submitList(movie_1s);
                     }
                 });
@@ -107,7 +106,6 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
             }
             else if (CURRENT_STATE.equals(CURRENT_STATE_TRENDING)){
-                Log.v("main","1");
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_VERTICAL);
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
@@ -133,33 +131,6 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 thread1.start();
             }
         }
-        /*else{
-            recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
-            ViewModel.recylcer_view_model_start(null);
-            ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
-                @Override
-                public void onChanged(PagedList<Movie_1> movie_1s) {
-                    Thread thread1=new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.submitList(movie_1s);
-
-                        }
-                    });
-                    thread1.start();
-                }
-            });
-
-            Thread thread1= new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    settingAdapterAndClickListener(container);
-                }
-            });
-            thread1.start();
-
-
-        }*/
 
 
         return root;

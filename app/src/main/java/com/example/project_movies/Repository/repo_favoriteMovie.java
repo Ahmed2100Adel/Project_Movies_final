@@ -24,8 +24,8 @@ public class repo_favoriteMovie {
 
     }
 
-    public LiveData<List<Movie_1>> getMoviesAtId(int id){
-        return DAO.getMovieAtId(id);
+    public LiveData<List<Movie_1>> getFavoriteMoviesAtId(int id){
+        return DAO.getMovieFavoriteAtId(id);
     }
 
     public void insert (Movie_1 movie){
@@ -116,7 +116,7 @@ public class repo_favoriteMovie {
 
         @Override
         protected LiveData<List<Movie_1>> doInBackground(Integer... Ids) {
-            return DAO.getMovieAtId(Ids[0]);
+            return DAO.getMovieFavoriteAtId(Ids[0]);
 
         }
     }
