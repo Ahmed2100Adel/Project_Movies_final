@@ -205,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         goToOtherActivity();
                         Intent intent= new Intent(MainActivity.this,Favorite_list.class);
-                        intent.setAction(String.valueOf(CURRENT_STATE_FAVORITES));
                         startActivity(intent);
                     }
                 });
@@ -224,6 +223,9 @@ public class MainActivity extends AppCompatActivity {
     private void goToOtherActivity(){
         binding.iconMore.setEnabled(true);
         binding.recyclerViewTrending.setClickable(true);
+        binding.textTrending.setVisibility(View.VISIBLE);
+        binding.textViewRandom.setVisibility(View.VISIBLE);
+        binding.randomGo.setVisibility(View.VISIBLE);
         Slide slide= new Slide();
         slide.setSlideEdge(Gravity.RIGHT);
         ViewGroup root=findViewById(R.id.moreList);
@@ -232,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         enableRecyclerView();
         Blurry.delete(binding.recyclerViewTrending);
+        Blurry.delete(binding.recyclerViewFavoriteOrOthers);
         STATE=STATE_MORE_LIST_NOT;
     }
     private void disableRecyclerView() {
@@ -264,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(root6,slide6);
         binding.moreList.setVisibility(View.VISIBLE);
 
+        binding.textTrending.setVisibility(View.GONE);
+        binding.textViewRandom.setVisibility(View.GONE);
+        binding.randomGo.setVisibility(View.GONE);
+
         if (binding.recyclerViewTrending!=null){
             Blurry.with(MainActivity.this)
                     .radius(25).
@@ -271,6 +278,14 @@ public class MainActivity extends AppCompatActivity {
                     .animate()
                     .onto(binding.recyclerViewTrending);
         }
+        if (binding.recyclerViewTrending!=null){
+            Blurry.with(MainActivity.this)
+                    .radius(25).
+                    sampling(2)
+                    .animate()
+                    .onto(binding.recyclerViewFavoriteOrOthers);
+        }
+
 
         Slide slide= new Slide();
         slide.setSlideEdge(Gravity.RIGHT);
@@ -368,6 +383,9 @@ public class MainActivity extends AppCompatActivity {
             TransitionManager.beginDelayedTransition(root,slide);
             binding.moreList.setVisibility(View.GONE);
             Blurry.delete(binding.recyclerViewTrending);
+            Blurry.delete(binding.recyclerViewFavoriteOrOthers);
+            binding.textTrending.setVisibility(View.VISIBLE);
+            binding.textViewRandom.setVisibility(View.VISIBLE);
             STATE=STATE_MORE_LIST_NOT;
             enableRecyclerView();
         }else{

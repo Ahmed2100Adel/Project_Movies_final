@@ -70,13 +70,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
         if (CURRENT_STATE!=null){
             if (CURRENT_STATE==CURRENT_STATE_FAVORITES){
-                Thread thread1= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        settingAdapterAndClickListener(container);
-                    }
-                });
-                thread1.start();
+                settingAdapterAndClickListener(container);
                 view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
                 ViewModel.getFavoritePagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
@@ -88,13 +82,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
 
 
             }else  if (CURRENT_STATE==CURRENT_STATE_I_WANT_TO_WATCH){
-                Thread thread1= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        settingAdapterAndClickListener(container);
-                    }
-                });
-                thread1.start();
+                settingAdapterAndClickListener(container);
                 view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
                 ViewModel.getIWantToWatchPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
@@ -104,13 +92,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                     }
                 });
             }else  if (CURRENT_STATE==CURRENT_STATE_WATCHED){
-                Thread thread1= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        settingAdapterAndClickListener(container);
-                    }
-                });
-                thread1.start();
+                settingAdapterAndClickListener(container);
                 view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
                 ViewModel.getWatchPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
@@ -121,13 +103,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
                 });
             }
             else if (CURRENT_STATE==CURRENT_STATE_FOR_KIDS){
-                Thread thread1= new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        settingAdapterAndClickListener(container);
-                    }
-                });
-                thread1.start();
+                settingAdapterAndClickListener(container);
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.setState(CURRENT_STATE_FOR_KIDS);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_FOR_KIDS,TYPE_VERTICAL);
