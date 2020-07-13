@@ -42,4 +42,14 @@ public class constants {
         public static final String POSTER_URL="poster-url";
         public static final String VOTE_AVERAGE="vote-average";
     }
+
+    public static class FILTER{
+        public static final String TYPE_RELEASE="type_release";
+        public static final String RELEASED_AT="released_at";
+        public static final String RELEASED_AFTER="released_after";
+        public static final String RELEASE_VALUE = "release_value";
+        public static final String GREATER_THAN = "greater_than";
+        public static final String LESS_THAN = "less_than";
+        public static final String GENRES = "genres";
+    }
 }

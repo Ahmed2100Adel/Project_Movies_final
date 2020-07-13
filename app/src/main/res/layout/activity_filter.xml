@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.filter"
+    android:background="#000"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize"
+        android:clipToPadding="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/gold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gold"
+            android:layout_marginEnd="64dp"
+            android:layout_marginStart="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Greater \n than"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="4dp"
+                android:inputType="textMultiLine"
+                android:textStyle="normal"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="ex: 6.5"
+                android:textColorHint="#fff"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:inputType="numberDecimal"
+                android:id="@+id/rate_greater"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Less \n than"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="4dp"
+                android:inputType="textMultiLine"
+                android:textStyle="normal"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="ex: 8.5"
+                android:textColorHint="#fff"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:inputType="numberDecimal"
+                android:id="@+id/rate_less"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gold"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Release date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/gold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gold"
+            android:layout_marginEnd="64dp"
+            android:layout_marginStart="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/release_after_parent"
+                >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Released after"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="4dp"
+                android:inputType="textMultiLine"
+                android:textStyle="normal"
+                android:id="@+id/release_after_text"
+                />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="ex: 2015"
+                android:textColorHint="#fff"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:inputType="numberDecimal"
+                android:id="@+id/release_after"
+                />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/release_at_parent"
+                >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Realeased at"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="4dp"
+                android:inputType="textMultiLine"
+                android:textStyle="normal"
+                android:id="@+id/release_at_text"
+                />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="ex: 2020"
+                android:textColorHint="#fff"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/white"
+                android:inputType="numberDecimal"
+                android:id="@+id/release_at"
+                />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gold"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/gold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textStyle="bold"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/gold"
+            android:layout_marginEnd="64dp"
+            android:layout_marginStart="16dp"/>
+
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Action"
+                        android:background="@drawable/black_panther"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/action"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Fantasy"
+                        android:background="@drawable/lord_of_the_rings"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/fantasy"
+                        />
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Drama"
+                        android:background="@drawable/irish_man_drama"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/drama"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="War"
+                        android:background="@drawable/war_1917"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:backgroundTintMode="src_atop"
+                        android:textStyle="bold"
+                        android:id="@+id/war"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Comdey"
+                        android:background="@drawable/friends_comdy"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/comedy"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Romance"
+                        android:background="@drawable/lalaland_romance"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/romance"
+                        />
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Science \n fiction"
+                        android:background="@drawable/inceptoin_scince_fiction"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/science_fiction"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Science \n horrer"
+                        android:background="@drawable/alien_science_horror"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:backgroundTintMode="src_atop"
+                        android:textStyle="bold"
+                        android:id="@+id/science_horrer"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Science"
+                        android:background="@drawable/intersteller_science"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/science"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Adventure"
+                        android:background="@drawable/wonder_women_adventure"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/adventure"
+                        />
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="History"
+                        android:background="@drawable/dunkiri_history"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/history"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Animations"
+                        android:background="@drawable/big_her_animations"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:backgroundTintMode="src_atop"
+                        android:textStyle="bold"
+                        android:id="@+id/animations"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Mystery"
+                        android:background="@drawable/sherlok_mystery"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/mystery"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Family"
+                        android:background="@drawable/karate_kid_family"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/family"
+                        />
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Thriller"
+                        android:background="@drawable/dark_knigh_thriller"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/thriller"
+                        />
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="16dp"
+                        android:text="Crime"
+                        android:background="@drawable/god_father_crime"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:backgroundTintMode="src_atop"
+                        android:textStyle="bold"
+                        android:id="@+id/crime"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+    </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:title="Filter"
+            app:titleTextColor="#fff"
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:id="@+id/done"
+            android:text="Done"
+            android:textColor="#fff"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

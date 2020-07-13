@@ -100,14 +100,12 @@ public class horizental_recyclerView_for_all extends Fragment {
             recyclerView.setLayoutManager(linearLayout);
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
             adapter=new adapter_recycler_view();
-            Log.v("main","91");
 
 
 
             if (type.equals(TYPE_TRENDING)){
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_HORIZENTAL);
-                Log.v("main","92");
 
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override

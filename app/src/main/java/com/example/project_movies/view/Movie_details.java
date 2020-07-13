@@ -346,15 +346,12 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isExisted){
-                    Log.v("main","21");
                     if (isIWantToWatch){
-                        Log.v("main","20");
 
                         if (!isWatched&&isIWantToWatch&&!isFavorite){
                             viewModelFavorits.deleteAtId(Integer.valueOf(id));
                             isIWantToWatch=false;
                             isExisted=false;
-                            Log.v("main","23");
 
                         }else{
                             Long tsLong = System.currentTimeMillis()/1000;
@@ -362,7 +359,6 @@ public class Movie_details extends AppCompatActivity {
                             movie1.setIdFav(idDB);
                             viewModelFavorits.update(movie1);
                             isIWantToWatch=false;
-                            Log.v("main","24");
 
                         }
                     }else{
@@ -371,7 +367,6 @@ public class Movie_details extends AppCompatActivity {
                         movie1.setIdFav(idDB);
                         viewModelFavorits.update(movie1);
                         isIWantToWatch=true;
-                        Log.v("main","25");
 
                     }
                 }
@@ -381,7 +376,6 @@ public class Movie_details extends AppCompatActivity {
                     viewModelFavorits.insert(movie1);
                     isIWantToWatch=true;
                     isExisted=true;
-                    Log.v("main","26");
 
                 }
 
@@ -394,15 +388,12 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isExisted){
-                    Log.v("main","21");
                     if (isWatched){
-                        Log.v("main","20");
 
                         if (isWatched&&!isIWantToWatch&&!isFavorite){
                             viewModelFavorits.deleteAtId(Integer.valueOf(id));
                             isWatched=false;
                             isExisted=false;
-                            Log.v("main","23");
 
                         }else{
                             Long tsLong = System.currentTimeMillis()/1000;
@@ -410,7 +401,6 @@ public class Movie_details extends AppCompatActivity {
                             movie1.setIdFav(idDB);
                             viewModelFavorits.update(movie1);
                             isWatched=false;
-                            Log.v("main","24");
 
                         }
                     }else{
@@ -419,7 +409,6 @@ public class Movie_details extends AppCompatActivity {
                         movie1.setIdFav(idDB);
                         viewModelFavorits.update(movie1);
                         isWatched=true;
-                        Log.v("main","25");
 
                     }
                 }
@@ -429,7 +418,6 @@ public class Movie_details extends AppCompatActivity {
                     viewModelFavorits.insert(movie1);
                     isWatched=true;
                     isExisted=true;
-                    Log.v("main","26");
 
                 }
 
@@ -443,15 +431,12 @@ public class Movie_details extends AppCompatActivity {
                         String release_date,String poster_url
     ){
         if (isExisted){
-            Log.v("main","21");
             if (isWatched){
-                Log.v("main","20");
 
                 if (isWatched&&!isIWantToWatch&&!isFavorite){
                     viewModelFavorits.deleteAtId(Integer.valueOf(id));
                     isWatched=false;
                     isExisted=false;
-                    Log.v("main","23");
 
                 }else{
                     Long tsLong = System.currentTimeMillis()/1000;
@@ -459,7 +444,6 @@ public class Movie_details extends AppCompatActivity {
                     movie1.setIdFav(idDB);
                     viewModelFavorits.update(movie1);
                     isWatched=false;
-                    Log.v("main","24");
 
                 }
             }else{
@@ -468,7 +452,6 @@ public class Movie_details extends AppCompatActivity {
                 movie1.setIdFav(idDB);
                 viewModelFavorits.update(movie1);
                 isWatched=true;
-                Log.v("main","25");
 
             }
         }
@@ -478,7 +461,6 @@ public class Movie_details extends AppCompatActivity {
             viewModelFavorits.insert(movie1);
             isWatched=true;
             isExisted=true;
-            Log.v("main","26");
 
         }
 
