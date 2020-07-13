@@ -8,11 +8,15 @@
     android:id="@+id/root"
     tools:context=".view.MainActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rootRecyclerViews"
         >
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,6 +57,49 @@
             android:background="#000"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_below="@+id/text_trending"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:includeFontPadding="false"
+            android:layout_marginStart="-16dp"
+            android:layout_marginEnd="-16dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:id="@+id/text_random"
+            android:layout_below="@+id/recycler_view_trending"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:text="I want to watch"
+                android:layout_gravity="start"
+                android:id="@+id/textView_random"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more >>"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/randomGo"
+                android:layout_gravity="end"
+                />
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view_favorite_or_others"
+            android:background="#000"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_below="@+id/text_random"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:includeFontPadding="false"
@@ -218,6 +265,7 @@
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

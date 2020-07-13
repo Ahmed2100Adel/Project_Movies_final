@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Slide;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+
 import com.example.project_movies.view.Fragments.horizental_recyclerView_for_all;
 import com.example.project_movies.view.Fragments.recyclerView_for_all;
 import jp.wasabeef.blurry.Blurry;
+
+import static com.example.project_movies.view.Fragments.horizental_recyclerView_for_all.CURRENT_STATE_FAVORITES;
+import static com.example.project_movies.view.Fragments.horizental_recyclerView_for_all.CURRENT_STATE_WATCHED;
+import static com.example.project_movies.view.Fragments.recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -81,13 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(root);
 
-         /*fragment_trending=new recyclerView_for_all();
-        //null meaning it came from trending activity
-        fragment_trending.CURRENT_STATE=fragment_trending.CURRENT_STATE_TRENDING;
-        FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(binding.recyclerViewTrending.getId(),fragment_trending)
-                .commit();*/
+
 
         buileFragment(TYPE_TRENDING);
         binding.iconMore.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,Favorite_list.class);
-                intent.setAction(String.valueOf(recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH));
+                intent.setAction(String.valueOf(CURRENT_STATE_I_WANT_TO_WATCH));
                 startActivity(intent);
             }
         });
@@ -153,6 +154,70 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Random random= new Random();
+        int max=3;
+        int min=1;
+        int randomNumber= random.nextInt((max - min) + 1) + min;
+        switch (randomNumber){
+            case 1:{
+                binding.textViewRandom.setText("I want to watch");
+                binding.randomGo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToOtherActivity();
+                        Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                        intent.setAction(String.valueOf(CURRENT_STATE_I_WANT_TO_WATCH));
+                        startActivity(intent);
+                    }
+                });
+                horizental_recyclerView_for_all recyclerViewRandom=  horizental_recyclerView_for_all.newInstance(3);
+                recyclerViewRandom.setType(CURRENT_STATE_I_WANT_TO_WATCH);
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .add(binding.recyclerViewFavoriteOrOthers.getId(),recyclerViewRandom)
+                        .commit();
+                break;
+            }
+            case 2:{
+                binding.textViewRandom.setText("I watched");
+                binding.randomGo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToOtherActivity();
+                        Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                        intent.setAction(String.valueOf(CURRENT_STATE_WATCHED));
+                        startActivity(intent);
+                    }
+                });
+                horizental_recyclerView_for_all recyclerViewRandom=  horizental_recyclerView_for_all.newInstance(3);
+                recyclerViewRandom.setType(CURRENT_STATE_WATCHED);
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .add(binding.recyclerViewFavoriteOrOthers.getId(),recyclerViewRandom)
+                        .commit();
+                break;
+            }
+            case 3:{
+                binding.textViewRandom.setText("Favorites");
+                binding.randomGo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToOtherActivity();
+                        Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                        intent.setAction(String.valueOf(CURRENT_STATE_FAVORITES));
+                        startActivity(intent);
+                    }
+                });
+                horizental_recyclerView_for_all recyclerViewRandom=  horizental_recyclerView_for_all.newInstance(3);
+                recyclerViewRandom.setType(CURRENT_STATE_FAVORITES);
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .add(binding.recyclerViewFavoriteOrOthers.getId(),recyclerViewRandom)
+                        .commit();
+                break;
+            }
+        }
 
     }
 

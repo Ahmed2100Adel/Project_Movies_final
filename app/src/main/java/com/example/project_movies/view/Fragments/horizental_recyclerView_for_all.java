@@ -13,6 +13,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.view.Movie_details;
 import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.example.project_movies.viewModel.recylcer_view_model;
+import com.example.project_movies.viewModel.view_model_favorite;
 
 import static com.example.project_movies.model.DataSource.MovieDataSource.TYPE_HORIZENTAL;
 
@@ -41,6 +43,10 @@ public class horizental_recyclerView_for_all extends Fragment {
     private Integer type=-1;
     public static final Integer TYPE_TRENDING=3;
     public static  Integer CURRENT_STATE_TRENDING=3;
+    public static  Integer CURRENT_STATE_I_WANT_TO_WATCH=4;
+    public static  Integer CURRENT_STATE_WATCHED=5;
+    public static  Integer CURRENT_STATE_FAVORITES=1;
+
     adapter_recycler_view adapter;
     RecyclerView recyclerView;
 
@@ -65,7 +71,7 @@ public class horizental_recyclerView_for_all extends Fragment {
 
     public void setType(Integer type){
         if (type!=null){
-            if (type==TYPE_TRENDING){
+            if (type.equals(TYPE_TRENDING)||type.equals(CURRENT_STATE_FAVORITES)||type.equals(CURRENT_STATE_WATCHED)||type.equals(CURRENT_STATE_I_WANT_TO_WATCH)){
                 this.type=type;
             }
         }
@@ -94,13 +100,15 @@ public class horizental_recyclerView_for_all extends Fragment {
             recyclerView.setLayoutManager(linearLayout);
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS));
             adapter=new adapter_recycler_view();
-
+            Log.v("main","91");
 
 
 
             if (type.equals(TYPE_TRENDING)){
                 recylcer_view_model ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(recylcer_view_model.class);
                 ViewModel.recylcer_view_model_start(CURRENT_STATE_TRENDING,TYPE_HORIZENTAL);
+                Log.v("main","92");
+
                 ViewModel.moviesList.observe(this, new Observer<PagedList<Movie_1>>() {
                     @Override
                     public void onChanged(PagedList<Movie_1> movie_1s) {
@@ -122,6 +130,58 @@ public class horizental_recyclerView_for_all extends Fragment {
                     }
                 });
                 thread1.start();
+            }else if (type.equals(CURRENT_STATE_I_WANT_TO_WATCH)){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        settingAdapterAndClickListener(container);
+                    }
+                });
+                thread1.start();
+                view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
+                ViewModel.getIWantToWatchPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> favorite_movies) {
+                        adapter.submitList(favorite_movies);
+
+                    }
+                });
+
+
+
+            }else if (type.equals(CURRENT_STATE_WATCHED)){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        settingAdapterAndClickListener(container);
+                    }
+                });
+                thread1.start();
+                view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
+                ViewModel.getWatchPagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> favorite_movies) {
+                        adapter.submitList(favorite_movies);
+
+                    }
+                });
+
+            }else if (type.equals(CURRENT_STATE_FAVORITES)){
+                Thread thread1= new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        settingAdapterAndClickListener(container);
+                    }
+                });
+                thread1.start();
+                view_model_favorite ViewModel= ViewModelProviders.of((FragmentActivity) container.getContext()).get(view_model_favorite.class);
+                ViewModel.getFavoritePagedLiveData().observe(this, new Observer<PagedList<Movie_1>>() {
+                    @Override
+                    public void onChanged(PagedList<Movie_1> favorite_movies) {
+                        adapter.submitList(favorite_movies);
+
+                    }
+                });
             }
         }
         return view;

@@ -45,6 +45,7 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
     @NonNull
     @Override
     public movieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.v("main","77");
 
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie,parent,false);
         return new movieHolder(view);
@@ -52,6 +53,7 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
 
     @Override
     public void onBindViewHolder(@NonNull movieHolder holder, int position) {
+
         Movie_1 movie1= getItem(position);
         Glide.with(holder.imageView.getContext())
                 .load(movie1.getPoster_path())
@@ -59,6 +61,9 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
         holder.title.setText(movie1.getTitle());
         holder.text_releaseDate.setText(movie1.getRelease_date());
         holder.tex_vote_average.setText(String.valueOf(movie1.getVote_average()));
+
+        Log.v("main","66");
+        //Log.v("main",movie1.getTitle());
 
         if (movie1.getId()==-1){
 
