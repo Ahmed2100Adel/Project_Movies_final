@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.project_movies.R;
 import com.example.project_movies.databinding.ActivityTrendingNowBinding;
@@ -36,6 +37,13 @@ public class trending_now extends AppCompatActivity {
 
                 finish();
 
+            }
+        });
+
+        binding.filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(trending_now.this, "aHMED", Toast.LENGTH_SHORT).show();
             }
         });
     }

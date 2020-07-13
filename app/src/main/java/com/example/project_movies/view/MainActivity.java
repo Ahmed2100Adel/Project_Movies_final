@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         binding.trendingNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,trending_now.class);
                 startActivity(intent);
             }
@@ -128,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         binding.seeMoreTrending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,trending_now.class);
                 startActivity(intent);
             }
@@ -139,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
                 goToOtherActivity();
                 Intent intent= new Intent(MainActivity.this,Favorite_list.class);
                 intent.setAction(String.valueOf(recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH));
+                startActivity(intent);
+            }
+        });
+        binding.watched.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToOtherActivity();
+                Intent intent= new Intent(MainActivity.this,Favorite_list.class);
+                intent.setAction(String.valueOf(recyclerView_for_all.CURRENT_STATE_WATCHED));
                 startActivity(intent);
             }
         });

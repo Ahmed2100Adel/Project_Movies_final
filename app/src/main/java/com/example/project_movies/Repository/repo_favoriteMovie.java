@@ -24,9 +24,7 @@ public class repo_favoriteMovie {
 
     }
 
-    public LiveData<List<Movie_1>> getFavoriteMoviesAtId(int id){
-        return DAO.getMovieFavoriteAtId(id);
-    }
+
 
     public LiveData<List<Movie_1>> getMovieAtId(int id){
         return DAO.getMovieAtId(id);

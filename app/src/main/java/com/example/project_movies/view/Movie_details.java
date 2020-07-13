@@ -56,8 +56,6 @@ public class Movie_details extends AppCompatActivity {
 
     private ActivityMovieDetailsBinding binding;
     String netflixUrl=null;
-    boolean favorite=false;
-    private String imdbId=null;
     view_mode_Movie2 viewModel;
     boolean horiMoreIsShown=false;
     Boolean isIWantToWatch =false;
@@ -116,11 +114,7 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onChanged(Movie_2 movie_2) {
 
-                //Toast.makeText(Movie_details.this, movie_2.getImdbId(), Toast.LENGTH_SHORT).show();
                 getOmdb(movie_2.getImdbId());
-                /*if (movie_2.isAdult()){
-                    binding.forAdults.setVisibility(View.VISIBLE);
-                }*/
                 binding.overView.setText(movie_2.getOverview());
                 binding.genres.setText(movie_2.getGenres());
                 netflixUrl=movie_2.getHomepage();
@@ -174,15 +168,12 @@ public class Movie_details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isExisted){
-                    Log.v("main","21");
                     if (isFavorite){
-                        Log.v("main","20");
 
                         if (!isWatched&&!isIWantToWatch&&isFavorite){
                             viewModelFavorits.deleteAtId(Integer.valueOf(id));
                             isFavorite=false;
                             isExisted=false;
-                            Log.v("main","23");
 
                         }else{
                             Long tsLong = System.currentTimeMillis()/1000;
@@ -190,7 +181,6 @@ public class Movie_details extends AppCompatActivity {
                             movie1.setIdFav(idDB);
                             viewModelFavorits.update(movie1);
                             isFavorite=false;
-                            Log.v("main","24");
 
                         }
                     }else{
@@ -199,7 +189,6 @@ public class Movie_details extends AppCompatActivity {
                         movie1.setIdFav(idDB);
                         viewModelFavorits.update(movie1);
                         isFavorite=true;
-                        Log.v("main","25");
 
                     }
                 }
@@ -209,7 +198,6 @@ public class Movie_details extends AppCompatActivity {
                     viewModelFavorits.insert(movie1);
                     isFavorite=true;
                     isExisted=true;
-                    Log.v("main","26");
 
                 }
 
@@ -227,11 +215,9 @@ public class Movie_details extends AppCompatActivity {
 
                     Movie_1 movie1=movie_1s.get(0);
                     if (movie1.getIWantToWatch()){
-                        Log.v("main","11");
                         isIWantToWatch=true;
                         binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list_done);
                     }else{
-                        Log.v("main","2");
 
                         binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list);
 
@@ -239,30 +225,25 @@ public class Movie_details extends AppCompatActivity {
 
 
                     if (movie1.getWatched()){
-                        Log.v("main","3");
 
                         isWatched=true;
                         binding.addToWatched.setImageResource(R.drawable.ic_action_watched_done);
                     }else{
-                        Log.v("main","4");
 
                         binding.addToWatched.setImageResource(R.drawable.ic_action_done);
 
                     }
 
                     if (movie1.getFavorite()){
-                        Log.v("main","5");
 
                         isFavorite=true;
                         binding.favorite.setImageResource(R.drawable.icon_favorite_on);
                     }else{
-                        Log.v("main","6");
 
                         binding.favorite.setImageResource(R.drawable.icon_favorite_not);
 
                     }
                 }else{
-                    Log.v("main","7");
                     binding.favorite.setImageResource(R.drawable.icon_favorite_not);
                     binding.addToIWantToWatch.setImageResource(R.drawable.ic_action_add_to_list);
                     binding.addToWatched.setImageResource(R.drawable.ic_action_done);
@@ -504,6 +485,7 @@ public class Movie_details extends AppCompatActivity {
 
     }
 
+    //set text to differenct views like author,director,..
     private void getOmdb(String imdbId){
         viewModel.getMovieOmdb(imdbId).observe(this, new Observer<Movie_Omdb>() {
             @Override
@@ -565,7 +547,7 @@ public class Movie_details extends AppCompatActivity {
 
     }
 
-
+    //sett margens for all views
     public static void setMargins (View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
@@ -573,6 +555,8 @@ public class Movie_details extends AppCompatActivity {
             v.requestLayout();
         }
     }
+
+    //set TextView of actor and director and writer with see more in collaboration of library ReadMoreOptions
     private void settingTextView(TextView textView,String text){
         ReadMoreOption readMoreOption = new ReadMoreOption.Builder(Movie_details.this)
                 .textLength(1, ReadMoreOption.TYPE_LINE) // OR
@@ -587,6 +571,8 @@ public class Movie_details extends AppCompatActivity {
         readMoreOption.addReadMoreTo(textView,text);
     }
 
+
+    //determines what is is the rate of that move if it's R or G...
     private void setImageRate(String imageRate){
         if (imageRate.contains("G")){
             binding.movieRating.setImageResource(R.drawable.movie_rating_g);

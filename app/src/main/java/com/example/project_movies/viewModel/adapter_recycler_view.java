@@ -56,9 +56,9 @@ public class adapter_recycler_view extends PagedListAdapter<Movie_1, adapter_rec
         Glide.with(holder.imageView.getContext())
                 .load(movie1.getPoster_path())
                 .into(holder.imageView);
-                holder.title.setText(movie1.getTitle());
-                holder.text_releaseDate.setText(movie1.getRelease_date());
-                holder.tex_vote_average.setText(String.valueOf(movie1.getVote_average()));
+        holder.title.setText(movie1.getTitle());
+        holder.text_releaseDate.setText(movie1.getRelease_date());
+        holder.tex_vote_average.setText(String.valueOf(movie1.getVote_average()));
 
         if (movie1.getId()==-1){
 

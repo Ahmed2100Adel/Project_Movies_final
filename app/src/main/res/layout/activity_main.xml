@@ -244,6 +244,7 @@
             android:id="@+id/trending_now"
             />
 
+
         <ImageView
             android:id="@+id/icon_more"
             android:layout_width="32dp"

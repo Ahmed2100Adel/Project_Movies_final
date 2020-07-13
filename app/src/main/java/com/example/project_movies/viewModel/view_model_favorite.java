@@ -56,6 +56,13 @@ public class view_model_favorite extends AndroidViewModel {
         return allMoviesPaged;
     }
 
+    public LiveData<PagedList<Movie_1>> getWatchPagedLiveData(){
+        DataSource.Factory<Integer,Movie_1>  factory=favoriteDB.getInstance(application).favoriteMovieDao().getWatchPaged();
+        LivePagedListBuilder<Integer,Movie_1> livePagedListBuilder=new LivePagedListBuilder<Integer,Movie_1> (factory,10);
+        allMoviesPaged=livePagedListBuilder.build();
+        return allMoviesPaged;
+    }
+
     public void deleteAtId(int id){
         repository.deleteAtId(id);
     }

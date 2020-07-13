@@ -8,6 +8,23 @@ public class constants {
         public static final String LANGUAGE_EN="en-US";
         public static final String CERTIFICATION_COUNTRY_US="US";
         public static final String CERTIFICATION_LTE="G";
+
+        public static final int GENRE_ACTION = 28;
+        public static final int GENRE_FANTASY = 14;
+        public static final int GENRE_DRAMA= 18 ;
+        public static final int GENRE_WAR= 10752 ;
+        public static final int GENRE_COMEDY =35 ;
+        public static final int GENRE_ROMANCE =10749 ;
+        public static final int GENRE_SCIENCE_FICTION =878 ;
+        public static final int GENRE_SCIENCE_HORROR =27 ;
+        public static final int GENRE_SCIENCE_SCIENCE =878 ;
+        public static final int GENRE_ADVENTURE =12 ;
+        public static final int GENRE_HISTORY =36 ;
+        public static final int GENRE_ANIMATIONS =16 ;
+        public static final int GENRE_MYSTERY =9648 ;
+        public static final int GENRE_FAMILY =10751 ;
+        public static final int GENRE_THRILLER =53 ;
+        public static final int GENRE_CRIME =80 ;
     }
 
     public static class THEOMDB{

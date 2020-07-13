@@ -21,39 +21,65 @@ public class Favorite_list extends AppCompatActivity {
         View root = binding.getRoot();
         setContentView(root);
 
-        if (getIntent().getAction() != null) {
-            if (getIntent().getAction().equals(String.valueOf(recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH))) {
-                recyclerView_for_all fragment_trending = new recyclerView_for_all();
-                fragment_trending.CURRENT_STATE = fragment_trending.CURRENT_STATE_I_WANT_TO_WATCH;
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(binding.recyclerViewTrending.getId(), fragment_trending)
-                        .commit();
+        Thread thread= new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (getIntent().getAction() != null) {
+                    if (getIntent().getAction().equals(String.valueOf(recyclerView_for_all.CURRENT_STATE_I_WANT_TO_WATCH))) {
+                        recyclerView_for_all fragment_trending = new recyclerView_for_all();
+                        fragment_trending.CURRENT_STATE = fragment_trending.CURRENT_STATE_I_WANT_TO_WATCH;
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .add(binding.recyclerViewTrending.getId(), fragment_trending)
+                                .commit();
 
-                binding.close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
+                        binding.close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        });
+
+                        binding.toolbar.setTitle("I want to watch ");
                     }
-                });
+                    if (getIntent().getAction().equals(String.valueOf(recyclerView_for_all.CURRENT_STATE_WATCHED))) {
+                        recyclerView_for_all fragment_trending = new recyclerView_for_all();
+                        fragment_trending.CURRENT_STATE = fragment_trending.CURRENT_STATE_WATCHED;
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .add(binding.recyclerViewTrending.getId(), fragment_trending)
+                                .commit();
 
-            }
-        } else {
-            recyclerView_for_all fragment_trending = new recyclerView_for_all();
-            fragment_trending.CURRENT_STATE = fragment_trending.CURRENT_STATE_FAVORITES;
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(binding.recyclerViewTrending.getId(), fragment_trending)
-                    .commit();
+                        binding.close.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        });
+                        binding.toolbar.setTitle("Watched ");
 
-            binding.close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
+                    }
+                } else {
+                    recyclerView_for_all fragment_trending = new recyclerView_for_all();
+                    fragment_trending.CURRENT_STATE = fragment_trending.CURRENT_STATE_FAVORITES;
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .add(binding.recyclerViewTrending.getId(), fragment_trending)
+                            .commit();
+
+                    binding.close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
+
                 }
-            });
+                }
+        });
+        thread.start();
 
-        }
+
 
     }
 }
