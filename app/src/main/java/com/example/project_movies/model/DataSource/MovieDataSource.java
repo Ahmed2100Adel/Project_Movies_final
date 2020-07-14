@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import com.example.project_movies.model.Models.Movie_1;
+import com.example.project_movies.model.Models.Movie_filter;
 import com.example.project_movies.model.Retrofit.RetrofitClient;
 import com.example.project_movies.constants.constants;
 import org.json.JSONArray;
@@ -250,18 +251,12 @@ public class MovieDataSource  extends PageKeyedDataSource<Integer, Movie_1> {
                     movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));
                 }
             }
-            /*int id = -1;
-            double vote_average =-1;
-            String title ="-1";
-            String release_date ="-1";
-            String poster_path = "-1";
-
-            movie_1List.add(new Movie_1(id, vote_average, title, release_date, poster_path));*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return movie_1List;
     }
+
 
 }

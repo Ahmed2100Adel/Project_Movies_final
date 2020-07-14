@@ -52,4 +52,11 @@ public class constants {
         public static final String LESS_THAN = "less_than";
         public static final String GENRES = "genres";
     }
+
+    public static class CURRENT_STATE{
+        public static  Integer CURRENT_STATE_TRENDING_FILTER=6;
+        public static final Integer STATE_LOADING_INITIAL=12;
+        public static final Integer STATE_LOADING_AFTER=13;
+        public static final Integer STATE_LOADING_BEFORE=14;
+    }
 }

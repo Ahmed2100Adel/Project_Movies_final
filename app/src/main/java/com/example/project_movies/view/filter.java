@@ -271,7 +271,7 @@ public class filter extends AppCompatActivity {
 
     public String getGenres(){
         StringBuilder stringBuilderGenres= new StringBuilder();
-        stringBuilderGenres.append("{");
+
         if (isAction){
             stringBuilderGenres.append(constants.THEMOVIEDB.GENRE_ACTION+",");
         }
@@ -308,7 +308,6 @@ public class filter extends AppCompatActivity {
             stringBuilderGenres.append(constants.THEMOVIEDB.GENRE_CRIME+",");
         }
         stringBuilderGenres.append(-1);
-        stringBuilderGenres.append("}");
         String genres=stringBuilderGenres.toString();
         return genres;
     }

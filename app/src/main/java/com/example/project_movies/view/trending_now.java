@@ -21,11 +21,11 @@ public class trending_now extends AppCompatActivity {
 
     private ActivityTrendingNowBinding binding;
     private int REQUEST_CODE_FILTER=100;
-    String greaterThan=null;
-    String lessThan=null;
-    String releaseValue=null;
-    String releaseType=null;
-    String genres=null;
+    Double greaterThan=-1.0;
+    Double lessThan=-1.0;
+    String releaseValue="-1";
+    String releaseType="-1";
+    String genres="-1";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,29 +63,27 @@ public class trending_now extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQUEST_CODE_FILTER&&resultCode==RESULT_OK){
-            Toast.makeText(this, "aHMED", Toast.LENGTH_SHORT).show();
 
             if (data.getStringExtra(constants.FILTER.GREATER_THAN)!=null){
-                greaterThan=data.getStringExtra(constants.FILTER.GREATER_THAN);
+                greaterThan=Double.valueOf(data.getStringExtra(constants.FILTER.GREATER_THAN));
             }
             if (data.getStringExtra(constants.FILTER.LESS_THAN)!=null){
-                lessThan=data.getStringExtra(constants.FILTER.LESS_THAN);
+                lessThan=Double.valueOf(data.getStringExtra(constants.FILTER.LESS_THAN));
             }
             if (data.getStringExtra(constants.FILTER.RELEASE_VALUE)!=null){
                 releaseValue=data.getStringExtra(constants.FILTER.RELEASE_VALUE);
                 releaseType=data.getStringExtra(constants.FILTER.TYPE_RELEASE);
             }
-
             genres=data.getStringExtra(constants.FILTER.GENRES);
 
+            if (greaterThan!=null||lessThan!=null||releaseValue!=null||genres.length()>4) {
+                filterResults();
+            }
+            }
+    }
 
-
-            String genres=data.getStringExtra(constants.FILTER.GENRES);
-            Log.v("main",genres);
-            Log.v("main",releaseValue);
-            Log.v("main",releaseType);
-            Log.v("main",lessThan);
-            Log.v("main",greaterThan);
-        }
+    private void filterResults() {
+        fragment_trending.CURRENT_STATE=constants.CURRENT_STATE.CURRENT_STATE_TRENDING_FILTER;
+        fragment_trending.clearRecyclerView(greaterThan,lessThan,releaseValue,releaseType,genres);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.project_movies.view.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,13 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.project_movies.constants.constants;
+import com.example.project_movies.model.Models.Movie_filter;
 import com.example.project_movies.view.Movie_details;
 import com.example.project_movies.model.Models.Movie_1;
 import com.example.project_movies.viewModel.recylcer_view_model;
@@ -25,7 +29,12 @@ import com.example.project_movies.viewModel.adapter_recycler_view;
 import com.example.project_movies.R;
 import com.example.project_movies.viewModel.view_model_favorite;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class recyclerView_for_all extends Fragment implements Serializable {
     adapter_recycler_view adapter;
@@ -40,6 +49,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
     public static  Integer CURRENT_STATE=null;
     public static final Integer TYPE_HORIZENTAL=100;
     public static final Integer TYPE_VERTICAL=101;
+    private FragmentActivity fragmentActivity;
     public adapter_recycler_view getAdapter(){
         return adapter;
     }
@@ -55,7 +65,7 @@ public class recyclerView_for_all extends Fragment implements Serializable {
         //main configuration for all situations
         recyclerView=(RecyclerView) root;
         recyclerView.setHasFixedSize(true);
-
+        this.fragmentActivity=(FragmentActivity) container.getContext();
 
         Thread thread= new Thread(new Runnable() {
             @Override
@@ -197,5 +207,19 @@ public class recyclerView_for_all extends Fragment implements Serializable {
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
+    public void clearRecyclerView(Double greaterThan, Double lessThan, String releaseValue, String releaseType, String genres){
+        this.adapter.submitList(null);
+        if (CURRENT_STATE.equals(constants.CURRENT_STATE.CURRENT_STATE_TRENDING_FILTER)){
+            recylcer_view_model view_model= ViewModelProviders.of(fragmentActivity).get(recylcer_view_model.class);
+            view_model.recylcer_view_model_start(constants.CURRENT_STATE.CURRENT_STATE_TRENDING_FILTER,greaterThan,lessThan,releaseType,releaseValue,genres);
+            view_model.movieListFilter.observe((LifecycleOwner) getContext(), new Observer<PagedList<Movie_1>>() {
+                @Override
+                public void onChanged(PagedList<Movie_1> movie_filters) {
+                    adapter.submitList(movie_filters);
+
+                }
+            });
+        }
+    }
 }
 
