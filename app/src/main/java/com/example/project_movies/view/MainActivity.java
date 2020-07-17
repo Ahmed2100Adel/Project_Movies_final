@@ -155,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });
+
         Random random= new Random();
         int max=3;
         int min=1;
@@ -307,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
         slide3.setSlideEdge(Gravity.LEFT);
         slide3.setDuration(700);
         TransitionManager.beginDelayedTransition(root,slide3);
-        binding.best2020.setVisibility(View.VISIBLE);
+        binding.signOut.setVisibility(View.VISIBLE);
 
 
         Slide slide4= new Slide();
@@ -349,22 +356,25 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.sendEmailVerification()
-                        .addOnCompleteListener(this, new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                /* Check Success */
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Verification Email Sent To: " + user.getEmail(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Failed To Send Verification Email!",
-                                            Toast.LENGTH_SHORT).show();
+                if (!user.isEmailVerified()){
+                    user.sendEmailVerification()
+                            .addOnCompleteListener(this, new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    /* Check Success */
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Verification Email Sent To: " + user.getEmail(),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(),
+                                                "Failed To Send Verification Email!",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
+
             } else {
                finish();
             }

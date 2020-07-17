@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:id="@+id/best2020"
+                    android:id="@+id/signOut"
                     android:visibility="gone"
                     >
 
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:elevation="16dp"
-                        android:text="best 2020"
+                        android:text="Sign out"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@android:color/white" />
                 </FrameLayout>
