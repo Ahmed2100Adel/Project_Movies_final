@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:624218158123:android:92b19571beb266ff43e66e",
         "android_client_info": {
-          "package_name": "com.example.project_movies"
+          "package_name": "com.wellmax8.project_movies"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "624218158123-g1eje5n7584mro7rdsq9irjpobs563lm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.project_movies",
+            "package_name": "com.wellmax8.project_movies",
             "certificate_hash": "a186a4994aeac86eeaae6217a4ee067bfebae820"
           }
         },
